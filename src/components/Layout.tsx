@@ -17,24 +17,27 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="sticky top-0 z-10 bg-white/90 backdrop-blur border-b border-slate-200">
+      <header className="sticky top-0 z-10 bg-white/80 backdrop-blur-xl border-b border-slate-200/70">
         <div className="max-w-4xl mx-auto px-4 h-16 flex items-center gap-3">
-          <Link to="/" className="font-extrabold text-xl text-brand-600 shrink-0">📚 StudyReel</Link>
+          <Link to="/" className="font-extrabold text-xl shrink-0 flex items-center gap-1.5">
+            <span className="grid place-items-center w-8 h-8 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 text-white text-base shadow-soft">📚</span>
+            <span className="bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">StudyReel</span>
+          </Link>
           <form onSubmit={submit} className="flex-1 max-w-xs">
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search topics…"
-              className="w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 outline-none text-sm"
+              className="w-full px-4 py-2 rounded-full bg-slate-100 border border-transparent focus:bg-white focus:border-brand-400 focus:ring-2 focus:ring-brand-100 outline-none text-sm transition"
             />
           </form>
           <nav className="flex items-center gap-3 text-sm shrink-0">
-            <Link to="/bookmarks" className="hover:text-brand-600">🔖</Link>
+            <Link to="/bookmarks" className="text-lg hover:scale-110 transition">🔖</Link>
 
             {!user ? (
               <Link
                 to="/login"
-                className="px-3 py-1.5 rounded-lg bg-brand-600 text-white font-medium hover:bg-brand-700"
+                className="px-4 py-2 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-semibold hover:shadow-lift transition shadow-soft"
               >
                 Sign in
               </Link>

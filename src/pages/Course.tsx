@@ -19,17 +19,20 @@ export default function CoursePage() {
 
   return (
     <div className="space-y-6">
-      <Link to="/" className="text-sm text-brand-600">← All courses</Link>
+      <Link to="/" className="text-sm text-brand-600 font-medium">← All courses</Link>
 
-      <section className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
-        <h1 className="text-2xl font-bold">{course.emoji} {course.name}</h1>
-        <p className="text-slate-500 mt-1">{course.description}</p>
-        <div className="flex items-center justify-between mt-4 text-sm">
-          <span className="font-bold text-brand-600">{pct}% complete</span>
-          <span className="text-slate-500">{done}/{total} lessons</span>
-        </div>
-        <div className="h-2 bg-slate-200 rounded-full mt-2 overflow-hidden">
-          <div className="h-full bg-brand-500 rounded-full transition-all" style={{ width: `${pct}%` }} />
+      <section className="relative overflow-hidden rounded-3xl p-7 text-white bg-gradient-to-br from-violet-600 via-indigo-600 to-blue-600 shadow-lift">
+        <div className="absolute -top-8 -right-8 w-40 h-40 rounded-full bg-white/10 blur-2xl" />
+        <div className="relative">
+          <h1 className="text-2xl font-extrabold">{course.emoji} {course.name}</h1>
+          <p className="text-white/85 mt-1">{course.description}</p>
+          <div className="flex items-center justify-between mt-4 text-sm">
+            <span className="font-bold">{pct}% complete</span>
+            <span className="text-white/80">{done}/{total} lessons</span>
+          </div>
+          <div className="h-2.5 bg-white/25 rounded-full mt-2 overflow-hidden">
+            <div className="h-full bg-white rounded-full transition-all" style={{ width: `${pct}%` }} />
+          </div>
         </div>
       </section>
 
