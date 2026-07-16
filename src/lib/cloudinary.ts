@@ -1,7 +1,7 @@
 // Cloudinary drag-and-drop video upload settings.
 // Fill these in from your free Cloudinary account (see FIREBASE_SETUP / setup guide).
-export const CLOUDINARY_CLOUD_NAME = 'wi27tllb'
-export const CLOUDINARY_UPLOAD_PRESET = 'dmgdusdi'
+export const CLOUDINARY_CLOUD_NAME: string = 'wi27tllb'
+export const CLOUDINARY_UPLOAD_PRESET: string = 'dmgdusdi'
 
 export const cloudinaryReady =
   CLOUDINARY_CLOUD_NAME !== 'PASTE_ME' && CLOUDINARY_UPLOAD_PRESET !== 'PASTE_ME'
