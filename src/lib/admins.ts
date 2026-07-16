@@ -2,7 +2,7 @@
 // To add or remove an owner, edit this list.
 export const ADMIN_EMAILS = [
   'annaraheja2@gmail.com',
-  'alexlevyalp@gmail.com',
+  'alexleyvalp@gmail.com',
   'f.nguyen088@gmail.com',
 ].map((e) => e.toLowerCase())
 
