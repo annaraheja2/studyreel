@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useAuth } from '../lib/AuthContext'
 import { useContent } from '../lib/ContentContext'
+import VideoUpload from '../components/VideoUpload'
 import type { Course, Question } from '../data/content'
 
 const newQuestion = (): Question => ({ text: '', options: ['', '', '', ''], correct: 0, explanation: '', difficulty: 2 })
@@ -95,9 +96,10 @@ export default function AdminCourse() {
                     <div className="mt-3 space-y-2">
                       <textarea className={input} rows={2} value={lesson.description}
                         onChange={(e) => edit((c) => { c.units[ui].lessons[li].description = e.target.value })} placeholder="Lesson description" />
-                      <label className="block text-xs font-medium text-slate-500">Video link — paste a Google Drive, YouTube, or direct .mp4 link</label>
+                      <label className="block text-xs font-medium text-slate-500">Video — drag a file to upload, or paste a link (Google Drive / YouTube / .mp4)</label>
+                      <VideoUpload onUploaded={(url) => edit((c) => { c.units[ui].lessons[li].videoURL = url })} />
                       <input className={input} value={lesson.videoURL}
-                        onChange={(e) => edit((c) => { c.units[ui].lessons[li].videoURL = e.target.value })} placeholder="https://drive.google.com/file/d/… or https://youtu.be/…" />
+                        onChange={(e) => edit((c) => { c.units[ui].lessons[li].videoURL = e.target.value })} placeholder="…or paste a link here" />
                       <div className="flex gap-2">
                         <div className="flex-1">
                           <label className="block text-xs font-medium text-slate-500">Difficulty (1–5)</label>
