@@ -15,42 +15,13 @@
 //   (1 = easy … 5 = hard); the app serves 3 adaptively.
 // ============================================================
 
-export interface Question {
-  text: string
-  options: string[]
-  correct: number // index of the correct option (0-based)
-  explanation: string
-  difficulty: number // 1..5
-}
+import { type Question, type Lesson, type Unit, type Course, SAMPLE as S } from './types'
+import { geometry } from './courses/geometry'
+import { algebra2 } from './courses/algebra2'
+import { precalc } from './courses/precalc'
 
-export interface Lesson {
-  id: string
-  title: string
-  description: string
-  videoURL: string
-  difficulty: number
-  tags: string[]
-  questions: Question[]
-}
-
-export interface Unit {
-  id: string
-  name: string
-  description: string
-  emoji: string
-  lessons: Lesson[]
-}
-
-// Placeholder sample clips so the site works immediately.
-// Replace each videoURL with your own link or a file in public/videos.
-const S = {
-  a: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-  b: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
-  c: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
-  d: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
-  e: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
-  f: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
-}
+// Re-export shared types so existing imports (`from '../data/content'`) keep working.
+export type { Question, Lesson, Unit, Course }
 
 const ALGEBRA1_UNITS: Unit[] = [
   {
@@ -448,27 +419,20 @@ const ALGEBRA1_UNITS: Unit[] = [
 ]
 
 // ============================================================
-//   COURSES — the top level. Each course holds its units.
-//   To add another course (e.g. Geometry), copy this block.
+//   COURSES — the top level. Each course lives in its own file
+//   under ./courses. To add one, create the file, import it,
+//   and add it to the COURSES array below.
 // ============================================================
 
-export interface Course {
-  id: string
-  name: string
-  description: string
-  emoji: string
-  units: Unit[]
+const algebra1: Course = {
+  id: 'algebra-1',
+  name: 'Algebra 1',
+  description: 'A full Algebra 1 course — 12 units from foundations to quadratics and statistics.',
+  emoji: '🎓',
+  units: ALGEBRA1_UNITS,
 }
 
-export const COURSES: Course[] = [
-  {
-    id: 'algebra-1',
-    name: 'Algebra 1',
-    description: 'A full Algebra 1 course — 12 units from foundations to quadratics and statistics.',
-    emoji: '🎓',
-    units: ALGEBRA1_UNITS,
-  },
-]
+export const COURSES: Course[] = [algebra1, geometry, algebra2, precalc]
 
 // ---- Derived flat lookups (the app uses these; no need to edit) ----
 
