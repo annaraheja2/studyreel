@@ -21,12 +21,12 @@ export default function CoursePage() {
     <div className="space-y-6">
       <Link to="/" className="text-sm text-slate-500 hover:text-brand-600 font-medium transition">← All courses</Link>
 
-      <section className="relative overflow-hidden rounded-[26px] p-7 sm:p-8 bg-slate-900 text-white">
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/25 via-transparent to-fuchsia-600/10" />
-        <div className="absolute -top-16 right-0 w-56 h-56 rounded-full bg-indigo-500/20 blur-3xl" />
+      <section className="relative overflow-hidden rounded-[26px] p-7 sm:p-8 bg-slate-950 text-white">
+        <div className="absolute -top-20 -left-10 w-64 h-64 rounded-full bg-violet-600/25 blur-3xl" />
+        <div className="absolute -bottom-20 right-0 w-72 h-72 rounded-full bg-indigo-500/25 blur-3xl" />
         <div className="relative">
-          <h1 className="text-2xl font-extrabold tracking-tight">{course.emoji} {course.name}</h1>
-          <p className="text-slate-300/90 mt-1">{course.description}</p>
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight bg-gradient-to-br from-white to-indigo-200/80 bg-clip-text text-transparent">{course.emoji} {course.name}</h1>
+          <p className="text-slate-300/90 mt-1.5">{course.description}</p>
           <div className="flex items-center justify-between mt-5 text-sm">
             <span className="font-semibold">{pct}% complete</span>
             <span className="text-slate-400">{done}/{total} lessons</span>
