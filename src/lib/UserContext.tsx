@@ -1,8 +1,12 @@
-import { createContext, useContext, useState, useCallback, type ReactNode } from 'react'
-import { loadUser, saveUser, type UserData } from './store'
+import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react'
+import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { loadUser, saveUser, mergeUserData, type UserData } from './store'
+import { db } from './firebase'
+import { useAuth } from './AuthContext'
 
 interface Ctx {
   user: UserData
+  syncing: boolean
   toggleBookmark: (id: string) => void
   rate: (id: string, stars: number) => void
   addReflection: (id: string, text: string) => void
@@ -13,15 +17,60 @@ interface Ctx {
 const UserCtx = createContext<Ctx | null>(null)
 
 export function UserProvider({ children }: { children: ReactNode }) {
+  const { user: account } = useAuth()
   const [user, setUser] = useState<UserData>(() => loadUser())
+  const [syncing, setSyncing] = useState(false)
 
+  // When someone logs in/out, sync their progress with the cloud.
+  useEffect(() => {
+    let cancelled = false
+
+    async function sync() {
+      if (!account) {
+        // Logged out → local-only progress.
+        setUser(loadUser())
+        return
+      }
+      setSyncing(true)
+      const ref = doc(db, 'users', account.uid)
+      const local = loadUser()
+      try {
+        const snap = await getDoc(ref)
+        const merged = snap.exists()
+          ? mergeUserData(snap.data() as UserData, local) // keep cloud + anything done before login
+          : local
+        if (!cancelled) {
+          setUser(merged)
+          saveUser(merged)
+        }
+        await setDoc(ref, merged) // create or update the cloud copy
+      } catch (e) {
+        // Firestore not ready / offline → fall back to local so the app still works.
+        console.warn('Cloud progress unavailable, using this device only.', e)
+        if (!cancelled) setUser(local)
+      } finally {
+        if (!cancelled) setSyncing(false)
+      }
+    }
+
+    sync()
+    return () => { cancelled = true }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [account?.uid])
+
+  // Apply a change: update state, cache locally, and (if logged in) save to the cloud.
   const update = useCallback((fn: (u: UserData) => UserData) => {
     setUser((prev) => {
       const next = fn(prev)
       saveUser(next)
+      if (account) {
+        setDoc(doc(db, 'users', account.uid), next).catch((e) =>
+          console.warn('Cloud save failed (kept locally).', e)
+        )
+      }
       return next
     })
-  }, [])
+  }, [account])
 
   const toggleBookmark = useCallback((id: string) => update((u) => ({
     ...u,
@@ -47,7 +96,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
   })), [update])
 
   return (
-    <UserCtx.Provider value={{ user, toggleBookmark, rate, addReflection, markCompleted, reset }}>
+    <UserCtx.Provider value={{ user, syncing, toggleBookmark, rate, addReflection, markCompleted, reset }}>
       {children}
     </UserCtx.Provider>
   )

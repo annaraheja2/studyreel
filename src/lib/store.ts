@@ -33,6 +33,23 @@ export function overallProgress(u: UserData): number {
   return VIDEOS.length ? u.completed.length / VIDEOS.length : 0
 }
 
+// Combine two progress records (e.g. cloud + whatever was done before signing in).
+// Nothing is lost: completed lessons and bookmarks are unioned; notes are merged.
+export function mergeUserData(a: UserData, b: UserData): UserData {
+  const uniq = (xs: string[] = []) => Array.from(new Set(xs))
+  const reflections: Record<string, string[]> = { ...(b.reflections ?? {}) }
+  for (const [id, notes] of Object.entries(a.reflections ?? {})) {
+    reflections[id] = uniq([...(notes ?? []), ...(reflections[id] ?? [])])
+  }
+  return {
+    completed: uniq([...(a.completed ?? []), ...(b.completed ?? [])]),
+    bookmarks: uniq([...(a.bookmarks ?? []), ...(b.bookmarks ?? [])]),
+    ratings: { ...(b.ratings ?? {}), ...(a.ratings ?? {}) },
+    reflections,
+    quizScores: { ...(b.quizScores ?? {}), ...(a.quizScores ?? {}) },
+  }
+}
+
 // ---- Adaptive quiz: serve 3 questions, harder after correct, easier after wrong ----
 
 export const QUIZ_LENGTH = 3
