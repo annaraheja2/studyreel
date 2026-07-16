@@ -12,7 +12,7 @@ export default function LevelPage() {
 
   return (
     <div className="space-y-4">
-      <Link to="/" className="text-sm text-brand-600">← All units</Link>
+      <Link to={`/course/${unit.courseId}`} className="text-sm text-brand-600">← {unit.courseName}</Link>
       <div>
         <h1 className="text-2xl font-bold">{unit.emoji} {unit.name}</h1>
         <p className="text-slate-500">{unit.description}</p>

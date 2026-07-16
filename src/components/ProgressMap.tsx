@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom'
-import { UNITS } from '../data/content'
+import type { Unit } from '../data/content'
 import { useUser } from '../lib/UserContext'
 
 // The visual progress map: units as cards, lessons as connected nodes.
-export default function ProgressMap() {
+export default function ProgressMap({ units }: { units: Unit[] }) {
   const { user } = useUser()
 
   return (
     <div className="space-y-4">
-      {UNITS.map((unit) => (
+      {units.map((unit) => (
         <div key={unit.id} className="bg-white rounded-2xl shadow-sm border border-slate-100 p-5">
           <Link to={`/unit/${unit.id}`} className="flex items-center gap-3 group">
             <span className="text-2xl">{unit.emoji}</span>

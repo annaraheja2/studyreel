@@ -52,7 +52,7 @@ const S = {
   f: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
 }
 
-export const UNITS: Unit[] = [
+const ALGEBRA1_UNITS: Unit[] = [
   {
     id: 'u1-foundations', name: 'Foundations of Algebra', emoji: '🧮',
     description: 'Variables, expressions, and order of operations.',
@@ -447,30 +447,78 @@ export const UNITS: Unit[] = [
   },
 ]
 
+// ============================================================
+//   COURSES — the top level. Each course holds its units.
+//   To add another course (e.g. Geometry), copy this block.
+// ============================================================
+
+export interface Course {
+  id: string
+  name: string
+  description: string
+  emoji: string
+  units: Unit[]
+}
+
+export const COURSES: Course[] = [
+  {
+    id: 'algebra-1',
+    name: 'Algebra 1',
+    description: 'A full Algebra 1 course — 12 units from foundations to quadratics and statistics.',
+    emoji: '🎓',
+    units: ALGEBRA1_UNITS,
+  },
+]
+
 // ---- Derived flat lookups (the app uses these; no need to edit) ----
 
+export interface UnitWithCourse extends Unit {
+  courseId: string
+  courseName: string
+}
+
+export const UNITS: UnitWithCourse[] = COURSES.flatMap((c) =>
+  c.units.map((u) => ({ ...u, courseId: c.id, courseName: c.name }))
+)
+
 export interface FlatVideo extends Lesson {
+  courseId: string
+  courseName: string
   unitId: string
   unitName: string
   unitEmoji: string
 }
 
-export const VIDEOS: FlatVideo[] = UNITS.flatMap((u) =>
-  u.lessons.map((l) => ({ ...l, unitId: u.id, unitName: u.name, unitEmoji: u.emoji }))
+export const VIDEOS: FlatVideo[] = COURSES.flatMap((c) =>
+  c.units.flatMap((u) =>
+    u.lessons.map((l) => ({
+      ...l,
+      courseId: c.id, courseName: c.name,
+      unitId: u.id, unitName: u.name, unitEmoji: u.emoji,
+    }))
+  )
 )
+
+export function getCourse(id: string): Course | undefined {
+  return COURSES.find((c) => c.id === id)
+}
+
+export function getUnit(id: string): UnitWithCourse | undefined {
+  return UNITS.find((u) => u.id === id)
+}
 
 export function getVideo(id: string): FlatVideo | undefined {
   return VIDEOS.find((v) => v.id === id)
 }
 
-export function getUnit(id: string): Unit | undefined {
-  return UNITS.find((u) => u.id === id)
+export function courseLessonCount(course: Course): number {
+  return course.units.reduce((n, u) => n + u.lessons.length, 0)
 }
 
 export function searchVideos(query: string): FlatVideo[] {
   const q = query.trim().toLowerCase()
   if (!q) return []
   return VIDEOS.filter((v) =>
-    [v.title, v.description, v.unitName, ...v.tags].join(' ').toLowerCase().includes(q)
+    [v.title, v.description, v.unitName, v.courseName, ...v.tags].join(' ').toLowerCase().includes(q)
   )
 }
