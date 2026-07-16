@@ -6,12 +6,16 @@ import LevelPage from './pages/Level'
 import VideoPage from './pages/Video'
 import Bookmarks from './pages/Bookmarks'
 import Search from './pages/Search'
+import Login from './pages/Login'
+import Admin from './pages/Admin'
 
 export default function App() {
   return (
     <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="/course/:courseId" element={<CoursePage />} />
         <Route path="/unit/:unitId" element={<LevelPage />} />
         <Route path="/video/:videoId" element={<VideoPage />} />
