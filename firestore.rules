@@ -2,10 +2,29 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    // The owner/master accounts (can read all student reflections).
+    function isOwner() {
+      return request.auth != null &&
+        request.auth.token.email in [
+          'annaraheja2@gmail.com',
+          'alexleyvalp@gmail.com',
+          'f.nguyen088@gmail.com'
+        ];
+    }
+
     // Each signed-in user can read & write ONLY their own progress document.
-    // No one can read anyone else's progress.
     match /users/{userId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // "Explain it back" reflections.
+    // Students create their own; owners can read them all.
+    match /reflections/{id} {
+      allow create: if request.auth != null
+                    && request.resource.data.userId == request.auth.uid;
+      allow read: if isOwner()
+                  || (request.auth != null && resource.data.userId == request.auth.uid);
+      allow delete: if isOwner();
     }
 
   }

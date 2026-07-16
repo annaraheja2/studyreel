@@ -1,7 +1,8 @@
 import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react'
-import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { doc, getDoc, setDoc, addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { loadUser, saveUser, mergeUserData, type UserData } from './store'
 import { db } from './firebase'
+import { getVideo } from '../data/content'
 import { useAuth } from './AuthContext'
 
 interface Ctx {
@@ -81,9 +82,27 @@ export function UserProvider({ children }: { children: ReactNode }) {
     ...u, ratings: { ...u.ratings, [id]: stars },
   })), [update])
 
-  const addReflection = useCallback((id: string, text: string) => update((u) => ({
-    ...u, reflections: { ...u.reflections, [id]: [text, ...(u.reflections[id] ?? [])] },
-  })), [update])
+  const addReflection = useCallback((id: string, text: string) => {
+    // Save to the student's own record (shown back to them on the lesson).
+    update((u) => ({
+      ...u, reflections: { ...u.reflections, [id]: [text, ...(u.reflections[id] ?? [])] },
+    }))
+    // Also send it to the shared collection so owners can read it in the Admin area.
+    if (account) {
+      const v = getVideo(id)
+      addDoc(collection(db, 'reflections'), {
+        userId: account.uid,
+        userName: account.displayName ?? '',
+        userEmail: account.email ?? '',
+        videoId: id,
+        videoTitle: v?.title ?? id,
+        courseName: v?.courseName ?? '',
+        unitName: v?.unitName ?? '',
+        text,
+        createdAt: serverTimestamp(),
+      }).catch((e) => console.warn('Reflection not sent to admin (kept locally).', e))
+    }
+  }, [update, account])
 
   const markCompleted = useCallback((id: string, correct: number, total: number) => update((u) => ({
     ...u,
