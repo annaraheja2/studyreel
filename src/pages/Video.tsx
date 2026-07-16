@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { useUser } from '../lib/UserContext'
 import { useContent } from '../lib/ContentContext'
 import Quiz from '../components/Quiz'
+import VideoPlayer from '../components/VideoPlayer'
 import StarRating, { DifficultyDots } from '../components/StarRating'
 
 export default function VideoPage() {
@@ -41,7 +42,7 @@ export default function VideoPage() {
     <div className="space-y-5">
       <Link to={`/unit/${video.unitId}`} className="text-sm text-brand-600">← {video.unitName}</Link>
 
-      <video ref={videoRef} src={video.videoURL} controls playsInline className="w-full rounded-2xl bg-black aspect-video" />
+      <VideoPlayer url={video.videoURL} videoRef={videoRef} />
 
       <div className="flex items-start justify-between gap-3">
         <div>

@@ -95,9 +95,9 @@ export default function AdminCourse() {
                     <div className="mt-3 space-y-2">
                       <textarea className={input} rows={2} value={lesson.description}
                         onChange={(e) => edit((c) => { c.units[ui].lessons[li].description = e.target.value })} placeholder="Lesson description" />
-                      <label className="block text-xs font-medium text-slate-500">Video link (YouTube or direct .mp4 URL)</label>
+                      <label className="block text-xs font-medium text-slate-500">Video link — paste a Google Drive, YouTube, or direct .mp4 link</label>
                       <input className={input} value={lesson.videoURL}
-                        onChange={(e) => edit((c) => { c.units[ui].lessons[li].videoURL = e.target.value })} placeholder="https://…" />
+                        onChange={(e) => edit((c) => { c.units[ui].lessons[li].videoURL = e.target.value })} placeholder="https://drive.google.com/file/d/… or https://youtu.be/…" />
                       <div className="flex gap-2">
                         <div className="flex-1">
                           <label className="block text-xs font-medium text-slate-500">Difficulty (1–5)</label>
