@@ -47,3 +47,21 @@ Then re-drag the new `dist` folder to Netlify (or it auto-updates if connected t
 ## Notes
 - **Videos:** the sample clips are web links. To use your own videos, either (a) put `.mp4` files in `public/videos/` and reference them as `videos/myfile.mp4`, or (b) host them somewhere (YouTube-embed, Cloudinary, S3) and paste the link. Big video files can make the upload large — hosting them separately is better for many videos.
 - **Progress** (completed lessons, bookmarks) is saved in each visitor's own browser.
+
+---
+
+## ✅ LIVE DEPLOYMENT (set up 2026-07-16)
+
+- **Live site:** https://annaraheja2.github.io/studyreel/
+- **Repo:** https://github.com/annaraheja2/studyreel
+- **GitHub account:** annaraheja2
+- **How it's hosted:** GitHub Pages, serving the built site from the `gh-pages` branch.
+
+### To republish after changing content:
+```
+cd ~/studyreel-web
+npm run build
+cd dist && git init -q && git checkout -b gh-pages && git add -A \
+  && git commit -qm deploy && git push -f https://github.com/annaraheja2/studyreel.git gh-pages
+```
+(The site auto-rebuilds ~1 min after the push.)
