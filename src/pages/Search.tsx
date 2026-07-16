@@ -1,10 +1,11 @@
 import { useSearchParams, Link } from 'react-router-dom'
-import { searchVideos } from '../data/content'
+import { useContent } from '../lib/ContentContext'
 
 export default function Search() {
   const [params] = useSearchParams()
+  const { search } = useContent()
   const q = params.get('q') ?? ''
-  const results = searchVideos(q)
+  const results = search(q)
 
   return (
     <div className="space-y-4">

@@ -1,13 +1,14 @@
 import { useRef, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { getVideo, VIDEOS } from '../data/content'
 import { useUser } from '../lib/UserContext'
+import { useContent } from '../lib/ContentContext'
 import Quiz from '../components/Quiz'
 import StarRating, { DifficultyDots } from '../components/StarRating'
 
 export default function VideoPage() {
   const { videoId } = useParams()
   const { user, toggleBookmark, rate, addReflection } = useUser()
+  const { getVideo, videos: VIDEOS } = useContent()
   const videoRef = useRef<HTMLVideoElement>(null)
   const [showQuiz, setShowQuiz] = useState(false)
   const [reflection, setReflection] = useState('')
@@ -18,7 +19,8 @@ export default function VideoPage() {
 
   const completed = user.completed.includes(video.id)
   const bookmarked = user.bookmarks.includes(video.id)
-  const next = nextVideoId(video.id)
+  const vIdx = VIDEOS.findIndex((v) => v.id === video.id)
+  const next = vIdx >= 0 && vIdx < VIDEOS.length - 1 ? VIDEOS[vIdx + 1] : undefined
 
   function rewatch() {
     if (videoRef.current) {
@@ -116,9 +118,4 @@ export default function VideoPage() {
       )}
     </div>
   )
-}
-
-function nextVideoId(id: string) {
-  const idx = VIDEOS.findIndex((v) => v.id === id)
-  return idx >= 0 && idx < VIDEOS.length - 1 ? VIDEOS[idx + 1] : undefined
 }

@@ -432,18 +432,12 @@ const algebra1: Course = {
   units: ALGEBRA1_UNITS,
 }
 
-export const COURSES: Course[] = [algebra1, geometry, algebra2, precalc]
+// The built-in "starter" content. Shown until an owner imports it into the
+// live database from the Admin area — after that, the database copy is what
+// everyone sees, and owners can edit it.
+export const LOCAL_COURSES: Course[] = [algebra1, geometry, algebra2, precalc]
 
-// ---- Derived flat lookups (the app uses these; no need to edit) ----
-
-export interface UnitWithCourse extends Unit {
-  courseId: string
-  courseName: string
-}
-
-export const UNITS: UnitWithCourse[] = COURSES.flatMap((c) =>
-  c.units.map((u) => ({ ...u, courseId: c.id, courseName: c.name }))
-)
+// ---- Pure helpers over whatever course list is active ----
 
 export interface FlatVideo extends Lesson {
   courseId: string
@@ -453,36 +447,26 @@ export interface FlatVideo extends Lesson {
   unitEmoji: string
 }
 
-export const VIDEOS: FlatVideo[] = COURSES.flatMap((c) =>
-  c.units.flatMap((u) =>
-    u.lessons.map((l) => ({
-      ...l,
-      courseId: c.id, courseName: c.name,
-      unitId: u.id, unitName: u.name, unitEmoji: u.emoji,
-    }))
+export function flattenVideos(courses: Course[]): FlatVideo[] {
+  return courses.flatMap((c) =>
+    c.units.flatMap((u) =>
+      u.lessons.map((l) => ({
+        ...l,
+        courseId: c.id, courseName: c.name,
+        unitId: u.id, unitName: u.name, unitEmoji: u.emoji,
+      }))
+    )
   )
-)
-
-export function getCourse(id: string): Course | undefined {
-  return COURSES.find((c) => c.id === id)
-}
-
-export function getUnit(id: string): UnitWithCourse | undefined {
-  return UNITS.find((u) => u.id === id)
-}
-
-export function getVideo(id: string): FlatVideo | undefined {
-  return VIDEOS.find((v) => v.id === id)
 }
 
 export function courseLessonCount(course: Course): number {
   return course.units.reduce((n, u) => n + u.lessons.length, 0)
 }
 
-export function searchVideos(query: string): FlatVideo[] {
+export function searchIn(courses: Course[], query: string): FlatVideo[] {
   const q = query.trim().toLowerCase()
   if (!q) return []
-  return VIDEOS.filter((v) =>
+  return flattenVideos(courses).filter((v) =>
     [v.title, v.description, v.unitName, v.courseName, ...v.tags].join(' ').toLowerCase().includes(q)
   )
 }

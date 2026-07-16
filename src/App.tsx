@@ -8,6 +8,7 @@ import Bookmarks from './pages/Bookmarks'
 import Search from './pages/Search'
 import Login from './pages/Login'
 import Admin from './pages/Admin'
+import AdminCourse from './pages/AdminCourse'
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/admin/course/:courseId" element={<AdminCourse />} />
         <Route path="/course/:courseId" element={<CoursePage />} />
         <Route path="/unit/:unitId" element={<LevelPage />} />
         <Route path="/video/:videoId" element={<VideoPage />} />

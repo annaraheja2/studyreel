@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom'
-import { COURSES, courseLessonCount } from '../data/content'
+import { courseLessonCount } from '../data/content'
 import { useUser } from '../lib/UserContext'
+import { useContent } from '../lib/ContentContext'
 
 export default function Home() {
   const { user } = useUser()
+  const { courses: COURSES } = useContent()
 
   return (
     <div className="space-y-6">

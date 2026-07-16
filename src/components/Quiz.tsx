@@ -4,12 +4,17 @@ import {
   type QuizState,
 } from '../lib/store'
 import { useUser } from '../lib/UserContext'
+import { useContent } from '../lib/ContentContext'
 import { DifficultyDots } from './StarRating'
 
 // Adaptive 3-question check-in with instant feedback.
 export default function Quiz({ videoId, onRewatch }: { videoId: string; onRewatch: () => void }) {
   const { markCompleted } = useUser()
-  const [state, setState] = useState<QuizState>(() => startQuiz(videoId))
+  const { getVideo } = useContent()
+  const [state, setState] = useState<QuizState>(() => {
+    const v = getVideo(videoId)
+    return startQuiz(v?.questions ?? [], v?.difficulty ?? 2)
+  })
   const [selected, setSelected] = useState<number | null>(null)
   const [showFeedback, setShowFeedback] = useState(false)
   const [finished, setFinished] = useState(false)

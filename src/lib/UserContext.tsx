@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useCallback, useEffect, type React
 import { doc, getDoc, setDoc, addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { loadUser, saveUser, mergeUserData, type UserData } from './store'
 import { db } from './firebase'
-import { getVideo } from '../data/content'
+import { useContent } from './ContentContext'
 import { useAuth } from './AuthContext'
 
 interface Ctx {
@@ -19,6 +19,7 @@ const UserCtx = createContext<Ctx | null>(null)
 
 export function UserProvider({ children }: { children: ReactNode }) {
   const { user: account } = useAuth()
+  const { getVideo } = useContent()
   const [user, setUser] = useState<UserData>(() => loadUser())
   const [syncing, setSyncing] = useState(false)
 
@@ -102,7 +103,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
         createdAt: serverTimestamp(),
       }).catch((e) => console.warn('Reflection not sent to admin (kept locally).', e))
     }
-  }, [update, account])
+  }, [update, account, getVideo])
 
   const markCompleted = useCallback((id: string, correct: number, total: number) => update((u) => ({
     ...u,

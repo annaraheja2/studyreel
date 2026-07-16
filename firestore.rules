@@ -2,7 +2,7 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // The owner/master accounts (can read all student reflections).
+    // The owner/master accounts.
     function isOwner() {
       return request.auth != null &&
         request.auth.token.email in [
@@ -12,13 +12,18 @@ service cloud.firestore {
         ];
     }
 
+    // Course content: anyone can read (even signed-out visitors); only owners can edit.
+    match /content/{doc} {
+      allow read: if true;
+      allow write: if isOwner();
+    }
+
     // Each signed-in user can read & write ONLY their own progress document.
     match /users/{userId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
 
-    // "Explain it back" reflections.
-    // Students create their own; owners can read them all.
+    // "Explain it back" reflections. Students create their own; owners read all.
     match /reflections/{id} {
       allow create: if request.auth != null
                     && request.resource.data.userId == request.auth.uid;

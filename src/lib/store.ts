@@ -1,6 +1,6 @@
 // Progress persistence (localStorage) + adaptive quiz engine.
 
-import { VIDEOS, getVideo, type Question } from '../data/content'
+import type { Question } from '../data/content'
 
 export interface UserData {
   completed: string[] // video ids passed
@@ -27,10 +27,6 @@ export function loadUser(): UserData {
 
 export function saveUser(u: UserData) {
   localStorage.setItem(KEY, JSON.stringify(u))
-}
-
-export function overallProgress(u: UserData): number {
-  return VIDEOS.length ? u.completed.length / VIDEOS.length : 0
 }
 
 // Combine two progress records (e.g. cloud + whatever was done before signing in).
@@ -64,10 +60,8 @@ export interface QuizState {
   correct: number
 }
 
-export function startQuiz(videoId: string): QuizState {
-  const v = getVideo(videoId)
-  const pool = v ? v.questions : []
-  const target = clamp(v?.difficulty ?? 2)
+export function startQuiz(pool: Question[], difficulty: number): QuizState {
+  const target = clamp(difficulty)
   const first = pickClosest(pool, new Set(), target)
   const used = new Set<number>()
   const served: number[] = []

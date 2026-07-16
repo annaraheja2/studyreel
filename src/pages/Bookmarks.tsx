@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
-import { getVideo } from '../data/content'
 import { useUser } from '../lib/UserContext'
+import { useContent } from '../lib/ContentContext'
 
 export default function Bookmarks() {
   const { user } = useUser()
+  const { getVideo } = useContent()
   const saved = user.bookmarks.map((id) => getVideo(id)).filter(Boolean)
 
   return (

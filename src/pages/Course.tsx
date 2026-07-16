@@ -1,11 +1,13 @@
 import { useParams, Link } from 'react-router-dom'
-import { getCourse, courseLessonCount } from '../data/content'
+import { courseLessonCount } from '../data/content'
 import { useUser } from '../lib/UserContext'
+import { useContent } from '../lib/ContentContext'
 import ProgressMap from '../components/ProgressMap'
 
 export default function CoursePage() {
   const { courseId } = useParams()
   const { user } = useUser()
+  const { getCourse } = useContent()
   const course = courseId ? getCourse(courseId) : undefined
 
   if (!course) return <p className="text-slate-500">Course not found. <Link to="/" className="text-brand-600">Go home</Link></p>

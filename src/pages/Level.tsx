@@ -1,11 +1,12 @@
 import { useParams, Link } from 'react-router-dom'
-import { getUnit } from '../data/content'
 import { useUser } from '../lib/UserContext'
+import { useContent } from '../lib/ContentContext'
 import { DifficultyDots } from '../components/StarRating'
 
 export default function LevelPage() {
   const { unitId } = useParams()
   const { user } = useUser()
+  const { getUnit } = useContent()
   const unit = unitId ? getUnit(unitId) : undefined
 
   if (!unit) return <p className="text-slate-500">Unit not found. <Link to="/" className="text-brand-600">Go home</Link></p>
