@@ -37,7 +37,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             {!user ? (
               <Link
                 to="/login"
-                className="px-4 py-2 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-semibold hover:shadow-lift transition shadow-soft"
+                className="px-4 py-2 rounded-full bg-slate-900 text-white font-semibold hover:bg-slate-800 transition"
               >
                 Sign in
               </Link>

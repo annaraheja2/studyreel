@@ -3,13 +3,13 @@ import { courseLessonCount } from '../data/content'
 import { useUser } from '../lib/UserContext'
 import { useContent } from '../lib/ContentContext'
 
-// Colorful accents cycled across course cards for a playful-but-clean look.
+// Subtle color accents cycled across course cards — refined, not loud.
 const ACCENTS = [
-  { grad: 'from-violet-500 to-indigo-600', soft: 'bg-violet-100 text-violet-700', bar: 'from-violet-500 to-indigo-500' },
-  { grad: 'from-sky-500 to-blue-600', soft: 'bg-sky-100 text-sky-700', bar: 'from-sky-500 to-blue-500' },
-  { grad: 'from-amber-400 to-orange-500', soft: 'bg-amber-100 text-amber-700', bar: 'from-amber-400 to-orange-500' },
-  { grad: 'from-emerald-400 to-teal-600', soft: 'bg-emerald-100 text-emerald-700', bar: 'from-emerald-400 to-teal-500' },
-  { grad: 'from-pink-500 to-rose-600', soft: 'bg-pink-100 text-pink-700', bar: 'from-pink-500 to-rose-500' },
+  { grad: 'from-violet-500 to-indigo-600', dot: 'bg-violet-500', soft: 'text-violet-600' },
+  { grad: 'from-sky-500 to-blue-600', dot: 'bg-sky-500', soft: 'text-sky-600' },
+  { grad: 'from-amber-400 to-orange-500', dot: 'bg-amber-500', soft: 'text-amber-600' },
+  { grad: 'from-emerald-400 to-teal-600', dot: 'bg-emerald-500', soft: 'text-emerald-600' },
+  { grad: 'from-rose-500 to-pink-600', dot: 'bg-rose-500', soft: 'text-rose-600' },
 ]
 
 export default function Home() {
@@ -18,22 +18,27 @@ export default function Home() {
 
   return (
     <div className="space-y-8">
-      {/* Hero */}
-      <section className="relative overflow-hidden rounded-3xl p-8 sm:p-10 text-white bg-gradient-to-br from-violet-600 via-indigo-600 to-blue-600 shadow-lift">
-        <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-white/10 blur-2xl" />
-        <div className="absolute -bottom-16 -left-10 w-56 h-56 rounded-full bg-white/10 blur-2xl" />
+      {/* Sleek dark hero */}
+      <section className="relative overflow-hidden rounded-[26px] p-8 sm:p-11 bg-slate-900 text-white">
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/25 via-transparent to-fuchsia-600/10" />
+        <div className="absolute -top-24 right-0 w-72 h-72 rounded-full bg-indigo-500/20 blur-3xl" />
         <div className="relative">
-          <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight">Learn math, one clip at a time 📚</h1>
-          <p className="mt-3 text-white/85 max-w-lg">
-            Pick a course, watch a short video, then take a quick 3-question check-in. Bite-sized, adaptive, and actually fun.
+          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-indigo-200 bg-white/10 border border-white/10 rounded-full px-3 py-1 mb-4">
+            ✦ Bite-sized math
+          </span>
+          <h1 className="text-3xl sm:text-[2.6rem] font-extrabold leading-[1.08] tracking-tight max-w-xl">
+            Learn math, one clip at a time
+          </h1>
+          <p className="mt-3 text-slate-300/90 max-w-md">
+            Watch a short video, take a quick 3-question check-in, and watch your progress grow.
           </p>
         </div>
       </section>
 
       {/* Courses */}
       <div className="space-y-4">
-        <h2 className="text-sm font-bold text-slate-500 uppercase tracking-wider px-1">Courses</h2>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-[0.14em] px-1">Courses</h2>
+        <div className="grid gap-3.5 sm:grid-cols-2">
           {COURSES.map((course, i) => {
             const a = ACCENTS[i % ACCENTS.length]
             const total = courseLessonCount(course)
@@ -44,23 +49,23 @@ export default function Home() {
               <Link
                 key={course.id}
                 to={`/course/${course.id}`}
-                className="group bg-white rounded-3xl p-5 shadow-soft border border-slate-100 hover:shadow-lift hover:-translate-y-0.5 transition-all"
+                className="group bg-white rounded-2xl p-5 border border-slate-200/70 hover:border-slate-300 hover:shadow-soft transition-all"
               >
-                <div className="flex items-center gap-4">
-                  <span className={`grid place-items-center w-14 h-14 rounded-2xl text-2xl text-white bg-gradient-to-br ${a.grad} shadow-soft`}>
+                <div className="flex items-center gap-3.5">
+                  <span className={`grid place-items-center w-12 h-12 rounded-xl text-xl text-white bg-gradient-to-br ${a.grad}`}>
                     {course.emoji}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <div className="text-lg font-bold group-hover:text-brand-600 transition">{course.name}</div>
-                    <div className="text-sm text-slate-500 line-clamp-2">{course.description}</div>
+                    <div className="font-bold text-slate-900 group-hover:text-brand-600 transition">{course.name}</div>
+                    <div className="text-sm text-slate-400 line-clamp-1">{course.description}</div>
                   </div>
                 </div>
-                <div className="flex items-center justify-between mt-4 text-xs font-medium">
-                  <span className={`px-2 py-1 rounded-full ${a.soft}`}>{pct}% complete</span>
+                <div className="flex items-center justify-between mt-4 text-xs">
+                  <span className={`font-semibold ${a.soft}`}>{pct}% complete</span>
                   <span className="text-slate-400">{course.units.length} units · {total} lessons</span>
                 </div>
-                <div className="h-2 bg-slate-100 rounded-full mt-2 overflow-hidden">
-                  <div className={`h-full rounded-full bg-gradient-to-r ${a.bar} transition-all`} style={{ width: `${pct}%` }} />
+                <div className="h-1.5 bg-slate-100 rounded-full mt-2 overflow-hidden">
+                  <div className={`h-full rounded-full ${a.dot} transition-all`} style={{ width: `${pct}%` }} />
                 </div>
               </Link>
             )

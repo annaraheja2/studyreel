@@ -9,7 +9,7 @@ export default function ProgressMap({ units }: { units: Unit[] }) {
   return (
     <div className="space-y-4">
       {units.map((unit) => (
-        <div key={unit.id} className="bg-white rounded-3xl shadow-soft border border-slate-100 p-5 hover:shadow-lift transition-shadow">
+        <div key={unit.id} className="bg-white rounded-2xl border border-slate-200/70 p-5 hover:border-slate-300 hover:shadow-soft transition-all">
           <Link to={`/unit/${unit.id}`} className="flex items-center gap-3 group">
             <span className="grid place-items-center w-11 h-11 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 text-xl">{unit.emoji}</span>
             <div className="flex-1 min-w-0">

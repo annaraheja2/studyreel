@@ -19,19 +19,20 @@ export default function CoursePage() {
 
   return (
     <div className="space-y-6">
-      <Link to="/" className="text-sm text-brand-600 font-medium">← All courses</Link>
+      <Link to="/" className="text-sm text-slate-500 hover:text-brand-600 font-medium transition">← All courses</Link>
 
-      <section className="relative overflow-hidden rounded-3xl p-7 text-white bg-gradient-to-br from-violet-600 via-indigo-600 to-blue-600 shadow-lift">
-        <div className="absolute -top-8 -right-8 w-40 h-40 rounded-full bg-white/10 blur-2xl" />
+      <section className="relative overflow-hidden rounded-[26px] p-7 sm:p-8 bg-slate-900 text-white">
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/25 via-transparent to-fuchsia-600/10" />
+        <div className="absolute -top-16 right-0 w-56 h-56 rounded-full bg-indigo-500/20 blur-3xl" />
         <div className="relative">
-          <h1 className="text-2xl font-extrabold">{course.emoji} {course.name}</h1>
-          <p className="text-white/85 mt-1">{course.description}</p>
-          <div className="flex items-center justify-between mt-4 text-sm">
-            <span className="font-bold">{pct}% complete</span>
-            <span className="text-white/80">{done}/{total} lessons</span>
+          <h1 className="text-2xl font-extrabold tracking-tight">{course.emoji} {course.name}</h1>
+          <p className="text-slate-300/90 mt-1">{course.description}</p>
+          <div className="flex items-center justify-between mt-5 text-sm">
+            <span className="font-semibold">{pct}% complete</span>
+            <span className="text-slate-400">{done}/{total} lessons</span>
           </div>
-          <div className="h-2.5 bg-white/25 rounded-full mt-2 overflow-hidden">
-            <div className="h-full bg-white rounded-full transition-all" style={{ width: `${pct}%` }} />
+          <div className="h-2 bg-white/15 rounded-full mt-2 overflow-hidden">
+            <div className="h-full bg-gradient-to-r from-indigo-400 to-violet-400 rounded-full transition-all" style={{ width: `${pct}%` }} />
           </div>
         </div>
       </section>
