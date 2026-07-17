@@ -24,12 +24,12 @@ export default function Home() {
         {/* Eclipse motif — amber glow */}
         <div className="pointer-events-none absolute -top-10 -right-10 sm:top-8 sm:right-10">
           <div className="relative w-40 h-40 sm:w-44 sm:h-44">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#F2B138]/60 to-[#E8940C]/30" />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#D98A2B]/55 to-[#A85410]/35" />
             <div className="absolute inset-0 rounded-full bg-[#FBFDFF] translate-x-9 -translate-y-5" />
           </div>
         </div>
         <div className="relative max-w-2xl">
-          <div className="text-xs font-semibold tracking-[0.2em] text-[#C77F16] uppercase">Eclipse Learning</div>
+          <div className="text-xs font-semibold tracking-[0.2em] text-[#A85E10] uppercase">Eclipse Learning</div>
           <h1 className="mt-4 text-4xl sm:text-5xl font-extrabold tracking-tight text-[#1F2A36] leading-[1.05]">
             Learn math,<br />one clip at a time.
           </h1>

@@ -167,7 +167,7 @@ export default function AdminCourse() {
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <span className="text-sm text-[#566573]">{dirty ? '● Unsaved changes' : 'All changes saved'}</span>
           <button onClick={save} disabled={!dirty || saving}
-            className="px-5 py-2 rounded-lg bg-[#E8940C] text-[#1F2A36] font-semibold hover:bg-[#D18309] transition disabled:opacity-50">
+            className="px-5 py-2 rounded-lg bg-[#B5610F] text-[#FBF3E7] font-semibold hover:bg-[#9C5410] transition disabled:opacity-50">
             {saving ? 'Saving…' : 'Save changes'}
           </button>
         </div>

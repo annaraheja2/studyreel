@@ -88,7 +88,7 @@ export default function Login() {
 
           <button
             type="submit" disabled={busy}
-            className="w-full py-2.5 rounded-md bg-[#E8940C] text-[#1F2A36] font-semibold hover:bg-[#D18309] transition disabled:opacity-60"
+            className="w-full py-2.5 rounded-md bg-[#B5610F] text-[#FBF3E7] font-semibold hover:bg-[#9C5410] transition disabled:opacity-60"
           >
             {busy ? 'Please wait…' : mode === 'signup' ? 'Create account' : 'Log in'}
           </button>
