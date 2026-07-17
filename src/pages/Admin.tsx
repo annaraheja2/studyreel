@@ -110,7 +110,7 @@ export default function Admin() {
         <div className="flex items-center justify-between mb-3">
           <h2 className="font-semibold">Courses & content</h2>
           {!usingStarter && (
-            <button onClick={addCourse} disabled={busy} className="text-sm px-3 py-1.5 rounded-lg bg-[#1F2A36] text-[#F4F9FE] hover:bg-[#2E3B49] disabled:opacity-50">
+            <button onClick={addCourse} disabled={busy} className="text-sm px-3 py-1.5 rounded-lg bg-[#E8940C] text-[#1F2A36] hover:bg-[#D18309] disabled:opacity-50">
               + Add course
             </button>
           )}
@@ -158,7 +158,7 @@ export default function Admin() {
             value={shortUrl} onChange={(e) => setShortUrl(e.target.value)} placeholder="…or paste a direct video link"
             className="w-full px-3 py-2 rounded-lg bg-[#FBFDFF] border border-[#CADDEE] text-[#1F2A36] placeholder-[#93A2B0] focus:border-[#A6C6E0] outline-none text-sm"
           />
-          <button onClick={postShort} disabled={busy} className="px-4 py-2 rounded-md bg-[#1F2A36] text-[#F4F9FE] font-semibold hover:bg-[#2E3B49] disabled:opacity-50 transition text-sm">
+          <button onClick={postShort} disabled={busy} className="px-4 py-2 rounded-md bg-[#E8940C] text-[#1F2A36] font-semibold hover:bg-[#D18309] disabled:opacity-50 transition text-sm">
             {busy ? 'Posting…' : 'Post to feed'}
           </button>
         </div>

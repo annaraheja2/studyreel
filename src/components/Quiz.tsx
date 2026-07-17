@@ -113,7 +113,7 @@ export default function Quiz({ videoId, onRewatch }: { videoId: string; onRewatc
           )}
           <button
             onClick={advance}
-            className="w-full py-2.5 rounded-md bg-[#1F2A36] text-[#F4F9FE] font-semibold hover:bg-[#2E3B49] transition"
+            className="w-full py-2.5 rounded-md bg-[#E8940C] text-[#1F2A36] font-semibold hover:bg-[#D18309] transition"
           >
             {state.answered + 1 >= total ? 'See results' : 'Next question'}
           </button>

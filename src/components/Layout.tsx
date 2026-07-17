@@ -23,7 +23,8 @@ export default function Layout({ children }: { children: ReactNode }) {
         <div className="max-w-5xl mx-auto px-5 h-16 flex items-center gap-4">
           <Link to="/" className="shrink-0 flex items-center gap-2.5">
             <span className="relative grid place-items-center w-7 h-7 rounded-full bg-[#1F2A36] overflow-hidden">
-              <span className="absolute w-4 h-4 rounded-full bg-[#C9E3F7] translate-x-1.5 -translate-y-0.5" />
+              <span className="absolute inset-0 rounded-full ring-2 ring-[#F2B138]/70" />
+              <span className="absolute w-4 h-4 rounded-full bg-[#F2B138] translate-x-1.5 -translate-y-0.5" />
             </span>
             <span className="font-semibold text-[15px] tracking-tight text-[#1F2A36]">Eclipse Learning</span>
           </Link>
@@ -44,7 +45,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             {!user ? (
               <Link
                 to="/login"
-                className="px-4 py-1.5 rounded-md bg-[#1F2A36] text-[#F4F9FE] font-semibold hover:bg-[#2E3B49] transition"
+                className="px-4 py-1.5 rounded-md bg-[#E8940C] text-[#1F2A36] font-semibold hover:bg-[#D18309] transition"
               >
                 Sign in
               </Link>

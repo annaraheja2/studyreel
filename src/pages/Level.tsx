@@ -31,7 +31,7 @@ export default function LevelPage() {
               to={`/video/${lesson.id}`}
               className="flex items-center gap-4 bg-[#FBFDFF] hover:bg-[#EDF5FC] transition-colors p-4"
             >
-              <div className={`grid place-items-center w-10 h-10 rounded-lg shrink-0 ${done ? 'bg-[#1F2A36] text-[#F4F9FE]' : 'bg-[#E9F2FB] border border-[#CADDEE] text-[#3A4653]'}`}>
+              <div className={`grid place-items-center w-10 h-10 rounded-lg shrink-0 ${done ? 'bg-[#E8940C] text-[#1F2A36]' : 'bg-[#E9F2FB] border border-[#CADDEE] text-[#3A4653]'}`}>
                 {done ? <Check className="w-5 h-5" /> : <Play className="w-4 h-4" />}
               </div>
               <div className="flex-1 min-w-0">

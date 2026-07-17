@@ -30,7 +30,7 @@ export default function ProgressMap({ units }: { units: Unit[] }) {
                     to={`/video/${lesson.id}`}
                     title={lesson.title}
                     className={`grid place-items-center w-7 h-7 shrink-0 rounded-md text-xs font-semibold transition hover:scale-105 ${
-                      done ? 'bg-[#1F2A36] text-[#F4F9FE]' : 'bg-[#CADDEE] text-[#3A4653] border border-[#CADDEE] hover:border-[#A6C6E0]'
+                      done ? 'bg-[#E8940C] text-[#1F2A36]' : 'bg-[#CADDEE] text-[#3A4653] border border-[#CADDEE] hover:border-[#A6C6E0]'
                     }`}
                   >
                     {done ? <Check className="w-4 h-4" /> : idx + 1}
