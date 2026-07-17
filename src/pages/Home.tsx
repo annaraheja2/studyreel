@@ -4,14 +4,8 @@ import { useUser } from '../lib/UserContext'
 import { useContent } from '../lib/ContentContext'
 import { ArrowRight } from '../components/icons'
 
-// Cool, varied accents tuned for the baby-blue theme.
-const ACCENTS = [
-  { badge: 'bg-[#2F6FB0]/12 text-[#2F6FB0] ring-1 ring-[#2F6FB0]/25', bar: 'bg-[#2F6FB0]', text: 'text-[#2F6FB0]' }, // blue
-  { badge: 'bg-[#2E8C86]/12 text-[#2E8C86] ring-1 ring-[#2E8C86]/25', bar: 'bg-[#2E8C86]', text: 'text-[#2E8C86]' }, // teal
-  { badge: 'bg-[#5C63B6]/12 text-[#5C63B6] ring-1 ring-[#5C63B6]/25', bar: 'bg-[#5C63B6]', text: 'text-[#5C63B6]' }, // indigo
-  { badge: 'bg-[#8A5CB0]/12 text-[#8A5CB0] ring-1 ring-[#8A5CB0]/25', bar: 'bg-[#8A5CB0]', text: 'text-[#8A5CB0]' }, // violet
-  { badge: 'bg-[#C77B57]/12 text-[#C77B57] ring-1 ring-[#C77B57]/25', bar: 'bg-[#C77B57]', text: 'text-[#C77B57]' }, // terracotta pop
-]
+// Unified amber accent for all courses (warm pop against the blue).
+const AMBER = { badge: 'bg-[#B5610F]/12 text-[#B5610F] ring-1 ring-[#B5610F]/25', bar: 'bg-[#B5610F]', text: 'text-[#B5610F]' }
 
 export default function Home() {
   const { user } = useUser()
@@ -46,8 +40,8 @@ export default function Home() {
           <span className="text-xs text-[#93A2B0]">{COURSES.length} available</span>
         </div>
         <div className="space-y-3">
-          {COURSES.map((course, i) => {
-            const a = ACCENTS[i % ACCENTS.length]
+          {COURSES.map((course) => {
+            const a = AMBER
             const total = courseLessonCount(course)
             const lessonIds = course.units.flatMap((u) => u.lessons.map((l) => l.id))
             const done = lessonIds.filter((id) => user.completed.includes(id)).length
