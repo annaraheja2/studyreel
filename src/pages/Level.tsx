@@ -22,7 +22,7 @@ export default function LevelPage() {
         <p className="text-[#6E6459] mt-1">{unit.description}</p>
       </div>
 
-      <div className="rounded-xl overflow-hidden border border-[#E1D8C8] divide-y divide-[#E7DFD0]">
+      <div className="rounded-xl overflow-hidden border border-[#E1D8C8] divide-y divide-[#E7DFD0] shadow-warm">
         {unit.lessons.map((lesson) => {
           const done = user.completed.includes(lesson.id)
           return (

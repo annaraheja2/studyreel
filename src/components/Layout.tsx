@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useState, type ReactNode } from 'react'
 import { useAuth } from '../lib/AuthContext'
 import { Bookmark } from './icons'
@@ -6,6 +6,7 @@ import { Bookmark } from './icons'
 export default function Layout({ children }: { children: ReactNode }) {
   const [q, setQ] = useState('')
   const navigate = useNavigate()
+  const location = useLocation()
   const { user, isAdmin, logOut } = useAuth()
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -77,7 +78,9 @@ export default function Layout({ children }: { children: ReactNode }) {
           </nav>
         </div>
       </header>
-      <main className="flex-1 max-w-5xl w-full mx-auto px-5 py-8">{children}</main>
+      <main className="flex-1 max-w-5xl w-full mx-auto px-5 py-8">
+        <div key={location.pathname} className="animate-in">{children}</div>
+      </main>
       <footer className="text-center text-xs text-[#A99E8D] py-8 px-5 border-t border-[#E7DFD0]">
         Eclipse Learning
       </footer>

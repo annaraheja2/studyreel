@@ -68,7 +68,7 @@ export default function VideoPage() {
       </div>
 
       {!showQuiz ? (
-        <div className="rounded-xl border border-[#E1D8C8] bg-[#FBF8F2] p-6 text-center space-y-3">
+        <div className="rounded-xl border border-[#E1D8C8] bg-[#FBF8F2] shadow-warmSm p-6 text-center space-y-3">
           <div className="font-semibold text-[#2B2620]">Finished watching?</div>
           <p className="text-sm text-[#6E6459]">Take a quick 3-question check-in to test yourself.</p>
           <button onClick={() => setShowQuiz(true)} className="px-6 py-2.5 rounded-md bg-[#2B2620] text-[#F4EFE6] font-semibold hover:bg-[#3D352B] transition">

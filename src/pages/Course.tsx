@@ -24,7 +24,7 @@ export default function CoursePage() {
         <ArrowLeft className="w-4 h-4" /> All courses
       </Link>
 
-      <section className="rounded-xl border border-[#E1D8C8] bg-[#FBF8F2] p-7 sm:p-8">
+      <section className="rounded-xl border border-[#E1D8C8] bg-[#FBF8F2] shadow-warm p-7 sm:p-8">
         <h1 className="text-3xl font-extrabold tracking-tight text-[#2B2620]">{course.name}</h1>
         <p className="text-[#6E6459] mt-2 max-w-lg">{course.description}</p>
         <div className="flex items-center justify-between mt-6 text-sm">

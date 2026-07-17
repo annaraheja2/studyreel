@@ -13,6 +13,14 @@ export default {
           800: '#3730a3', 900: '#312e81',
         },
       },
+      boxShadow: {
+        warm: '0 1px 2px rgba(43,38,32,0.04), 0 12px 30px -16px rgba(43,38,32,0.22)',
+        warmSm: '0 1px 2px rgba(43,38,32,0.05), 0 4px 12px -6px rgba(43,38,32,0.12)',
+      },
+      keyframes: {
+        fadeUp: { '0%': { opacity: '0', transform: 'translateY(8px)' }, '100%': { opacity: '1', transform: 'none' } },
+      },
+      animation: { in: 'fadeUp 0.45s ease both' },
       // Sharper, tighter radii across the whole app
       borderRadius: {
         DEFAULT: '0.25rem',

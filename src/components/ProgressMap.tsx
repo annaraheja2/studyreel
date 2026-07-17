@@ -7,7 +7,7 @@ export default function ProgressMap({ units }: { units: Unit[] }) {
   const { user } = useUser()
 
   return (
-    <div className="rounded-xl overflow-hidden border border-[#E1D8C8] divide-y divide-[#E7DFD0]">
+    <div className="rounded-xl overflow-hidden border border-[#E1D8C8] divide-y divide-[#E7DFD0] shadow-warm">
       {units.map((unit, ui) => (
         <div key={unit.id} className="bg-[#FBF8F2] hover:bg-[#F6F0E5] transition-colors p-5">
           <Link to={`/unit/${unit.id}`} className="flex items-center gap-3.5 group">

@@ -66,7 +66,7 @@ export default function Quiz({ videoId, onRewatch }: { videoId: string; onRewatc
   if (!q) return null
 
   return (
-    <div className="rounded-xl border border-[#E1D8C8] bg-[#FBF8F2] p-5 space-y-4">
+    <div className="rounded-xl border border-[#E1D8C8] bg-[#FBF8F2] shadow-warmSm p-5 space-y-4">
       <div className="flex items-center justify-between">
         <span className="text-xs font-semibold tracking-wide text-[#8A8071] uppercase">
           Question {state.answered + 1} of {total}
