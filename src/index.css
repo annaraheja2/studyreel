@@ -11,7 +11,8 @@ body {
   @apply text-[#2B2620] antialiased;
   min-height: 100vh;
   background:
-    radial-gradient(900px 520px at 50% -20%, rgba(150, 118, 82, 0.08), transparent 62%),
+    radial-gradient(rgba(60, 48, 34, 0.055) 1px, transparent 1.6px) 0 0 / 24px 24px,
+    radial-gradient(900px 520px at 50% -20%, rgba(150, 118, 82, 0.10), transparent 62%),
     #ece5d8;
   background-attachment: fixed;
   letter-spacing: -0.011em;
