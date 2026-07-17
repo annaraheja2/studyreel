@@ -86,13 +86,13 @@ export default function Admin() {
   return (
     <div className="space-y-6">
       <div>
-        <div className="inline-block text-xs font-bold px-2 py-1 rounded-full bg-amber-100 text-amber-700">OWNER</div>
-        <h1 className="text-2xl font-bold mt-2">Admin</h1>
-        <p className="text-slate-500">Signed in as {user.email}. You have full access.</p>
+        <div className="inline-block text-xs font-bold px-2 py-1 rounded-full bg-amber-400/20 text-amber-300">OWNER</div>
+        <h1 className="text-2xl font-bold mt-2 text-white">Admin</h1>
+        <p className="text-slate-400">Signed in as {user.email}. You have full access.</p>
       </div>
 
       {/* Content management */}
-      <div className="bg-white rounded-2xl border border-slate-100 p-5">
+      <div className="bg-white/[0.04] rounded-2xl border border-white/10 p-5">
         <div className="flex items-center justify-between mb-3">
           <h2 className="font-semibold">📚 Courses & content</h2>
           {!usingStarter && (
@@ -103,26 +103,26 @@ export default function Admin() {
         </div>
 
         {usingStarter ? (
-          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
-            <p className="text-sm text-amber-800 font-medium">Editing isn’t turned on yet.</p>
-            <p className="text-sm text-amber-700 mt-1">
+          <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4">
+            <p className="text-sm text-amber-200 font-medium">Editing isn’t turned on yet.</p>
+            <p className="text-sm text-amber-200/80 mt-1">
               Your courses are currently the built-in starter set. Click below once to copy them into your
               database — after that, you can edit lessons, quizzes, and videos right here, and changes go live for everyone.
             </p>
-            <button onClick={enableEditing} disabled={busy} className="mt-3 px-4 py-2 rounded-lg bg-amber-600 text-white font-medium hover:bg-amber-700 disabled:opacity-50">
+            <button onClick={enableEditing} disabled={busy} className="mt-3 px-4 py-2 rounded-lg bg-amber-500 text-slate-900 font-semibold hover:bg-amber-400 disabled:opacity-50">
               {busy ? 'Importing…' : 'Enable editing (import courses)'}
             </button>
           </div>
         ) : (
           <div className="space-y-2">
             {courses.map((c) => (
-              <div key={c.id} className="flex items-center gap-3 p-3 rounded-xl bg-slate-50">
+              <div key={c.id} className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/10">
                 <span className="text-2xl">{c.emoji}</span>
                 <div className="flex-1 min-w-0">
                   <div className="font-medium">{c.name}</div>
                   <div className="text-xs text-slate-500">{c.units.length} units · {courseLessonCount(c)} lessons</div>
                 </div>
-                <Link to={`/admin/course/${c.id}`} className="text-sm px-3 py-1.5 rounded-lg border border-slate-300 hover:bg-white">Edit</Link>
+                <Link to={`/admin/course/${c.id}`} className="text-sm px-3 py-1.5 rounded-lg border border-white/15 hover:bg-white/10 text-slate-100">Edit</Link>
                 <button onClick={() => deleteCourse(c.id, c.name)} disabled={busy} className="text-sm px-2 py-1.5 rounded-lg text-red-600 hover:bg-red-50">Delete</button>
               </div>
             ))}
@@ -132,7 +132,7 @@ export default function Admin() {
       </div>
 
       {/* Student reflections */}
-      <div className="bg-white rounded-2xl border border-slate-100 p-5">
+      <div className="bg-white/[0.04] rounded-2xl border border-white/10 p-5">
         <div className="flex items-center justify-between mb-3">
           <h2 className="font-semibold">✍️ Student “Explain it back” reflections</h2>
           <span className="text-xs text-slate-400">{reflections.length} total</span>
@@ -146,10 +146,10 @@ export default function Admin() {
         ) : (
           <div className="space-y-3">
             {reflections.map((r) => (
-              <div key={r.id} className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                <p className="text-slate-800">“{r.text}”</p>
+              <div key={r.id} className="p-3 rounded-xl bg-white/[0.03] border border-white/10">
+                <p className="text-slate-100">“{r.text}”</p>
                 <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-2 text-xs text-slate-500">
-                  <span className="font-medium text-slate-600">{r.userName || r.userEmail || 'Student'}</span>
+                  <span className="font-medium text-slate-300">{r.userName || r.userEmail || 'Student'}</span>
                   <span>·</span>
                   <span>{[r.courseName, r.unitName, r.videoTitle].filter(Boolean).join(' › ')}</span>
                   {r.createdAt && (<><span>·</span><span>{fmt(r.createdAt.toDate())}</span></>)}

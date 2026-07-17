@@ -44,14 +44,14 @@ export default function Quiz({ videoId, onRewatch }: { videoId: string; onRewatc
   if (finished) {
     const passed = quizPassed(state)
     return (
-      <div className="bg-white rounded-2xl border border-slate-100 p-6 text-center space-y-3">
+      <div className="bg-white/[0.04] rounded-2xl border border-white/10 p-6 text-center space-y-3">
         <div className="text-5xl">{passed ? '🎉' : '🔁'}</div>
-        <div className="text-xl font-bold">{passed ? 'Nice work — check-in passed!' : 'Almost there'}</div>
-        <div className="text-slate-500">You got {state.correct} of {total} correct.</div>
+        <div className="text-xl font-bold text-white">{passed ? 'Nice work — check-in passed!' : 'Almost there'}</div>
+        <div className="text-slate-400">You got {state.correct} of {total} correct.</div>
         {!passed && (
           <>
-            <div className="text-sm text-slate-500">You need {PASS_THRESHOLD} correct. Rewatch and try again!</div>
-            <button onClick={onRewatch} className="px-4 py-2 rounded-lg border border-slate-300 hover:bg-slate-50 text-sm">
+            <div className="text-sm text-slate-400">You need {PASS_THRESHOLD} correct. Rewatch and try again!</div>
+            <button onClick={onRewatch} className="px-4 py-2 rounded-lg border border-white/15 hover:bg-white/5 text-sm text-slate-200">
               ↺ Rewatch lesson
             </button>
           </>
@@ -63,22 +63,22 @@ export default function Quiz({ videoId, onRewatch }: { videoId: string; onRewatc
   if (!q) return null
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-100 p-5 space-y-4">
+    <div className="bg-white/[0.04] rounded-2xl border border-white/10 p-5 space-y-4">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-bold text-brand-600">
+        <span className="text-xs font-bold text-brand-300">
           Check-in · Question {state.answered + 1} of {total}
         </span>
         <DifficultyDots level={q.difficulty} />
       </div>
-      <div className="font-semibold text-lg">{q.text}</div>
+      <div className="font-semibold text-lg text-white">{q.text}</div>
 
       <div className="space-y-2">
         {q.options.map((opt, idx) => {
-          let cls = 'border-slate-200 hover:border-brand-400'
+          let cls = 'border-white/10 bg-white/[0.03] text-slate-100 hover:border-brand-400 hover:bg-white/[0.06]'
           if (showFeedback) {
-            if (idx === q.correct) cls = 'border-green-400 bg-green-50'
-            else if (idx === selected) cls = 'border-red-400 bg-red-50'
-            else cls = 'border-slate-200 opacity-60'
+            if (idx === q.correct) cls = 'border-emerald-400/60 bg-emerald-500/15 text-white'
+            else if (idx === selected) cls = 'border-red-400/60 bg-red-500/15 text-white'
+            else cls = 'border-white/10 text-slate-400 opacity-60'
           }
           return (
             <button
@@ -99,18 +99,18 @@ export default function Quiz({ videoId, onRewatch }: { videoId: string; onRewatc
 
       {showFeedback && (
         <div className="space-y-3 pt-1">
-          <div className={`font-semibold ${selected === q.correct ? 'text-green-600' : 'text-orange-500'}`}>
+          <div className={`font-semibold ${selected === q.correct ? 'text-emerald-400' : 'text-orange-400'}`}>
             {selected === q.correct ? '✓ Correct!' : 'ⓘ Not quite'}
           </div>
-          <p className="text-slate-600 text-sm">{q.explanation}</p>
+          <p className="text-slate-300 text-sm">{q.explanation}</p>
           {selected !== q.correct && (
-            <button onClick={onRewatch} className="text-sm px-3 py-1.5 rounded-lg border border-slate-300 hover:bg-slate-50">
+            <button onClick={onRewatch} className="text-sm px-3 py-1.5 rounded-lg border border-white/15 hover:bg-white/5 text-slate-200">
               ↺ Rewatch this lesson
             </button>
           )}
           <button
             onClick={advance}
-            className="w-full py-3 rounded-xl bg-brand-600 text-white font-semibold hover:bg-brand-700"
+            className="w-full py-3 rounded-xl bg-gradient-to-r from-violet-500 to-indigo-600 text-white font-semibold hover:shadow-lg hover:shadow-indigo-500/40 transition"
           >
             {state.answered + 1 >= total ? 'See results' : 'Next question'}
           </button>

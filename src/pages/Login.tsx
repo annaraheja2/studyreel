@@ -42,26 +42,26 @@ export default function Login() {
 
   return (
     <div className="max-w-sm mx-auto mt-6">
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
-        <h1 className="text-2xl font-bold text-center">
+      <div className="bg-white/[0.04] rounded-2xl border border-white/10 p-6">
+        <h1 className="text-2xl font-bold text-center text-white">
           {mode === 'signup' ? 'Create your account' : 'Welcome back'}
         </h1>
-        <p className="text-center text-slate-500 text-sm mt-1">
+        <p className="text-center text-slate-400 text-sm mt-1">
           {mode === 'signup' ? 'Save your progress across devices.' : 'Log in to continue learning.'}
         </p>
 
         <button
           onClick={google}
           disabled={busy}
-          className="w-full mt-5 py-2.5 rounded-xl border border-slate-300 font-medium hover:bg-slate-50 flex items-center justify-center gap-2 disabled:opacity-60"
+          className="w-full mt-5 py-2.5 rounded-xl border border-white/15 font-medium text-slate-100 hover:bg-white/5 flex items-center justify-center gap-2 disabled:opacity-60"
         >
           <span className="text-lg">🔵</span> Continue with Google
         </button>
 
         <div className="flex items-center gap-3 my-4">
-          <div className="h-px bg-slate-200 flex-1" />
-          <span className="text-xs text-slate-400">or</span>
-          <div className="h-px bg-slate-200 flex-1" />
+          <div className="h-px bg-white/10 flex-1" />
+          <span className="text-xs text-slate-500">or</span>
+          <div className="h-px bg-white/10 flex-1" />
         </div>
 
         <form onSubmit={submit} className="space-y-3">
@@ -69,36 +69,36 @@ export default function Login() {
             <input
               value={name} onChange={(e) => setName(e.target.value)}
               placeholder="Your name" required
-              className="w-full px-3 py-2.5 rounded-xl border border-slate-300 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 outline-none"
+              className="w-full px-3 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-slate-100 placeholder-slate-500 focus:border-brand-400 focus:ring-1 focus:ring-brand-500/40 outline-none"
             />
           )}
           <input
             type="email" value={email} onChange={(e) => setEmail(e.target.value)}
             placeholder="Email" required autoComplete="email"
-            className="w-full px-3 py-2.5 rounded-xl border border-slate-300 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 outline-none"
+            className="w-full px-3 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-slate-100 placeholder-slate-500 focus:border-brand-400 focus:ring-1 focus:ring-brand-500/40 outline-none"
           />
           <input
             type="password" value={password} onChange={(e) => setPassword(e.target.value)}
             placeholder="Password (6+ characters)" required minLength={6}
             autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
-            className="w-full px-3 py-2.5 rounded-xl border border-slate-300 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 outline-none"
+            className="w-full px-3 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-slate-100 placeholder-slate-500 focus:border-brand-400 focus:ring-1 focus:ring-brand-500/40 outline-none"
           />
 
-          {error && <p className="text-sm text-red-600">{error}</p>}
+          {error && <p className="text-sm text-red-400">{error}</p>}
 
           <button
             type="submit" disabled={busy}
-            className="w-full py-2.5 rounded-xl bg-brand-600 text-white font-semibold hover:bg-brand-700 disabled:opacity-60"
+            className="w-full py-2.5 rounded-xl bg-gradient-to-r from-violet-500 to-indigo-600 text-white font-semibold hover:shadow-lg hover:shadow-indigo-500/40 transition disabled:opacity-60"
           >
             {busy ? 'Please wait…' : mode === 'signup' ? 'Create account' : 'Log in'}
           </button>
         </form>
 
-        <p className="text-center text-sm text-slate-500 mt-4">
+        <p className="text-center text-sm text-slate-400 mt-4">
           {mode === 'signup' ? 'Already have an account?' : 'New here?'}{' '}
           <button
             onClick={() => { setMode(mode === 'signup' ? 'login' : 'signup'); setError('') }}
-            className="text-brand-600 font-medium"
+            className="text-brand-300 font-medium"
           >
             {mode === 'signup' ? 'Log in' : 'Create one'}
           </button>

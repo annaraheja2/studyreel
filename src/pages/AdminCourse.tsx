@@ -46,14 +46,14 @@ export default function AdminCourse() {
     setSaving(false)
   }
 
-  const input = 'w-full px-3 py-2 rounded-lg border border-slate-300 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 outline-none text-sm'
+  const input = 'w-full px-3 py-2 rounded-lg bg-white/[0.05] border border-white/10 text-slate-100 placeholder-slate-500 focus:border-brand-400 focus:ring-1 focus:ring-brand-500/40 outline-none text-sm'
 
   return (
     <div className="space-y-5 pb-24">
       <Link to="/admin" className="text-sm text-brand-600">← Admin</Link>
 
       {/* Course details */}
-      <div className="bg-white rounded-2xl border border-slate-100 p-5 space-y-3">
+      <div className="bg-white/[0.04] rounded-2xl border border-white/10 p-5 space-y-3">
         <h1 className="font-bold text-lg">Edit course</h1>
         <div className="flex gap-2">
           <input className={input + ' w-20 text-center text-xl'} value={draft.emoji}
@@ -67,9 +67,9 @@ export default function AdminCourse() {
 
       {/* Units */}
       {draft.units.map((unit, ui) => (
-        <div key={unit.id} className="bg-white rounded-2xl border border-slate-100 p-4">
+        <div key={unit.id} className="bg-white/[0.04] rounded-2xl border border-white/10 p-4">
           <div className="flex items-center gap-2">
-            <button onClick={() => toggle(unit.id)} className="text-slate-400 w-5">{open[unit.id] ? '▾' : '▸'}</button>
+            <button onClick={() => toggle(unit.id)} className="text-slate-500 w-5">{open[unit.id] ? '▾' : '▸'}</button>
             <input className={input + ' w-16 text-center'} value={unit.emoji}
               onChange={(e) => edit((c) => { c.units[ui].emoji = e.target.value })} />
             <input className={input + ' font-semibold'} value={unit.name}
@@ -84,9 +84,9 @@ export default function AdminCourse() {
 
               {/* Lessons */}
               {unit.lessons.map((lesson, li) => (
-                <div key={lesson.id} className="border border-slate-200 rounded-xl p-3">
+                <div key={lesson.id} className="border border-white/10 rounded-xl p-3">
                   <div className="flex items-center gap-2">
-                    <button onClick={() => toggle(lesson.id)} className="text-slate-400 w-5">{open[lesson.id] ? '▾' : '▸'}</button>
+                    <button onClick={() => toggle(lesson.id)} className="text-slate-500 w-5">{open[lesson.id] ? '▾' : '▸'}</button>
                     <input className={input} value={lesson.title}
                       onChange={(e) => edit((c) => { c.units[ui].lessons[li].title = e.target.value })} placeholder="Lesson title" />
                     <button onClick={() => edit((c) => { c.units[ui].lessons.splice(li, 1) })} className="text-red-500 text-sm px-2">🗑</button>
@@ -96,20 +96,20 @@ export default function AdminCourse() {
                     <div className="mt-3 space-y-2">
                       <textarea className={input} rows={2} value={lesson.description}
                         onChange={(e) => edit((c) => { c.units[ui].lessons[li].description = e.target.value })} placeholder="Lesson description" />
-                      <label className="block text-xs font-medium text-slate-500">Video — drag a file to upload, or paste a link (Google Drive / YouTube / .mp4)</label>
+                      <label className="block text-xs font-medium text-slate-400">Video — drag a file to upload, or paste a link (Google Drive / YouTube / .mp4)</label>
                       <VideoUpload onUploaded={(url) => edit((c) => { c.units[ui].lessons[li].videoURL = url })} />
                       <input className={input} value={lesson.videoURL}
                         onChange={(e) => edit((c) => { c.units[ui].lessons[li].videoURL = e.target.value })} placeholder="…or paste a link here" />
                       <div className="flex gap-2">
                         <div className="flex-1">
-                          <label className="block text-xs font-medium text-slate-500">Difficulty (1–5)</label>
+                          <label className="block text-xs font-medium text-slate-400">Difficulty (1–5)</label>
                           <select className={input} value={lesson.difficulty}
                             onChange={(e) => edit((c) => { c.units[ui].lessons[li].difficulty = Number(e.target.value) })}>
                             {[1, 2, 3, 4, 5].map((n) => <option key={n} value={n}>{n}</option>)}
                           </select>
                         </div>
                         <div className="flex-1">
-                          <label className="block text-xs font-medium text-slate-500">Tags (comma-separated)</label>
+                          <label className="block text-xs font-medium text-slate-400">Tags (comma-separated)</label>
                           <input className={input} value={lesson.tags.join(', ')}
                             onChange={(e) => edit((c) => { c.units[ui].lessons[li].tags = e.target.value.split(',').map((t) => t.trim()).filter(Boolean) })} />
                         </div>
@@ -117,9 +117,9 @@ export default function AdminCourse() {
 
                       {/* Questions */}
                       <div className="mt-2">
-                        <div className="text-xs font-semibold text-slate-500 mb-1">Quiz questions</div>
+                        <div className="text-xs font-semibold text-slate-400 mb-1">Quiz questions</div>
                         {lesson.questions.map((qq, qi) => (
-                          <div key={qi} className="bg-slate-50 rounded-lg p-3 mb-2 space-y-2">
+                          <div key={qi} className="bg-white/[0.03] rounded-lg p-3 mb-2 space-y-2">
                             <div className="flex gap-2">
                               <input className={input} value={qq.text}
                                 onChange={(e) => edit((c) => { c.units[ui].lessons[li].questions[qi].text = e.target.value })} placeholder={`Question ${qi + 1}`} />
@@ -135,7 +135,7 @@ export default function AdminCourse() {
                             ))}
                             <input className={input} value={qq.explanation}
                               onChange={(e) => edit((c) => { c.units[ui].lessons[li].questions[qi].explanation = e.target.value })} placeholder="Explanation (why the answer is right)" />
-                            <div className="text-xs text-slate-400">Select the radio button next to the correct answer.</div>
+                            <div className="text-xs text-slate-500">Select the radio button next to the correct answer.</div>
                           </div>
                         ))}
                         <button onClick={() => edit((c) => { c.units[ui].lessons[li].questions.push(newQuestion()) })}
@@ -164,15 +164,15 @@ export default function AdminCourse() {
         onClick={() => edit((c) => {
           c.units.push({ id: `unit-${crypto.randomUUID().slice(0, 8)}`, name: 'New unit', description: '', emoji: '📄', lessons: [] })
         })}
-        className="text-sm px-3 py-2 rounded-lg border border-slate-300 hover:bg-white"
+        className="text-sm px-3 py-2 rounded-lg border border-white/15 hover:bg-white/10 text-slate-100"
       >+ Add unit</button>
 
       {/* Sticky save bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur border-t border-slate-200 p-3">
+      <div className="fixed bottom-0 left-0 right-0 bg-slate-950/90 backdrop-blur border-t border-white/10 p-3">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <span className="text-sm text-slate-500">{dirty ? '● Unsaved changes' : 'All changes saved'}</span>
+          <span className="text-sm text-slate-400">{dirty ? '● Unsaved changes' : 'All changes saved'}</span>
           <button onClick={save} disabled={!dirty || saving}
-            className="px-5 py-2 rounded-lg bg-brand-600 text-white font-semibold hover:bg-brand-700 disabled:opacity-50">
+            className="px-5 py-2 rounded-lg bg-gradient-to-r from-violet-500 to-indigo-600 text-white font-semibold hover:shadow-lg hover:shadow-indigo-500/40 transition disabled:opacity-50">
             {saving ? 'Saving…' : 'Save changes'}
           </button>
         </div>

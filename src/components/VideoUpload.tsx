@@ -33,7 +33,7 @@ export default function VideoUpload({ onUploaded }: { onUploaded: (url: string) 
         onClick={() => inputRef.current?.click()}
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => { e.preventDefault(); handleFile(e.dataTransfer.files[0]) }}
-        className="border-2 border-dashed border-slate-300 rounded-xl p-4 text-center text-sm text-slate-500 cursor-pointer hover:border-brand-400 hover:bg-slate-50"
+        className="border-2 border-dashed border-white/15 rounded-xl p-4 text-center text-sm text-slate-400 cursor-pointer hover:border-brand-400 hover:bg-white/[0.04] transition"
       >
         <input ref={inputRef} type="file" accept="video/*" className="hidden"
           onChange={(e) => handleFile(e.target.files?.[0])} />

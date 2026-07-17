@@ -5,11 +5,11 @@ import { useContent } from '../lib/ContentContext'
 
 // Rich accent set — each course glows in its own color on hover.
 const ACCENTS = [
-  { grad: 'from-violet-500 to-indigo-600', text: 'text-violet-600', bar: 'from-violet-500 to-indigo-500', glow: 'hover:shadow-[0_18px_50px_-18px_rgba(124,58,237,0.55)]' },
-  { grad: 'from-sky-500 to-blue-600', text: 'text-sky-600', bar: 'from-sky-500 to-blue-500', glow: 'hover:shadow-[0_18px_50px_-18px_rgba(2,132,199,0.55)]' },
-  { grad: 'from-amber-400 to-orange-500', text: 'text-amber-600', bar: 'from-amber-400 to-orange-500', glow: 'hover:shadow-[0_18px_50px_-18px_rgba(234,88,12,0.55)]' },
-  { grad: 'from-emerald-400 to-teal-600', text: 'text-emerald-600', bar: 'from-emerald-400 to-teal-500', glow: 'hover:shadow-[0_18px_50px_-18px_rgba(13,148,136,0.55)]' },
-  { grad: 'from-rose-500 to-pink-600', text: 'text-rose-600', bar: 'from-rose-500 to-pink-500', glow: 'hover:shadow-[0_18px_50px_-18px_rgba(225,29,72,0.55)]' },
+  { grad: 'from-violet-500 to-indigo-600', text: 'text-violet-300', bar: 'from-violet-500 to-indigo-500', glow: 'hover:shadow-[0_18px_50px_-18px_rgba(124,58,237,0.65)]' },
+  { grad: 'from-sky-500 to-blue-600', text: 'text-sky-300', bar: 'from-sky-500 to-blue-500', glow: 'hover:shadow-[0_18px_50px_-18px_rgba(56,189,248,0.6)]' },
+  { grad: 'from-amber-400 to-orange-500', text: 'text-amber-300', bar: 'from-amber-400 to-orange-500', glow: 'hover:shadow-[0_18px_50px_-18px_rgba(251,146,60,0.6)]' },
+  { grad: 'from-emerald-400 to-teal-600', text: 'text-emerald-300', bar: 'from-emerald-400 to-teal-500', glow: 'hover:shadow-[0_18px_50px_-18px_rgba(45,212,191,0.6)]' },
+  { grad: 'from-rose-500 to-pink-600', text: 'text-rose-300', bar: 'from-rose-500 to-pink-500', glow: 'hover:shadow-[0_18px_50px_-18px_rgba(244,63,94,0.6)]' },
 ]
 
 const GRID = {
@@ -59,22 +59,22 @@ export default function Home() {
               <Link
                 key={course.id}
                 to={`/course/${course.id}`}
-                className={`group bg-white rounded-2xl p-5 border border-slate-200/70 hover:border-slate-200 hover:-translate-y-0.5 transition-all duration-300 ${a.glow}`}
+                className={`group bg-white/[0.04] rounded-2xl p-5 border border-white/10 hover:border-white/20 hover:bg-white/[0.06] hover:-translate-y-0.5 transition-all duration-300 ${a.glow}`}
               >
                 <div className="flex items-center gap-3.5">
-                  <span className={`grid place-items-center w-12 h-12 rounded-xl text-xl text-white bg-gradient-to-br ${a.grad} shadow-lg shadow-slate-900/10 group-hover:scale-105 transition-transform`}>
+                  <span className={`grid place-items-center w-12 h-12 rounded-xl text-xl text-white bg-gradient-to-br ${a.grad} shadow-lg group-hover:scale-105 transition-transform`}>
                     {course.emoji}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <div className="font-bold text-slate-900 group-hover:text-brand-600 transition">{course.name}</div>
+                    <div className="font-bold text-white group-hover:text-brand-300 transition">{course.name}</div>
                     <div className="text-sm text-slate-400 line-clamp-1">{course.description}</div>
                   </div>
                 </div>
                 <div className="flex items-center justify-between mt-4 text-xs">
                   <span className={`font-semibold ${a.text}`}>{pct}% complete</span>
-                  <span className="text-slate-400">{course.units.length} units · {total} lessons</span>
+                  <span className="text-slate-500">{course.units.length} units · {total} lessons</span>
                 </div>
-                <div className="h-1.5 bg-slate-100 rounded-full mt-2 overflow-hidden">
+                <div className="h-1.5 bg-white/10 rounded-full mt-2 overflow-hidden">
                   <div className={`h-full rounded-full bg-gradient-to-r ${a.bar} transition-all`} style={{ width: `${pct}%` }} />
                 </div>
               </Link>

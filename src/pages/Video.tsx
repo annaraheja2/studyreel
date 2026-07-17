@@ -40,18 +40,18 @@ export default function VideoPage() {
 
   return (
     <div className="space-y-5">
-      <Link to={`/unit/${video.unitId}`} className="text-sm text-brand-600">← {video.unitName}</Link>
+      <Link to={`/unit/${video.unitId}`} className="text-sm text-slate-400 hover:text-brand-300 font-medium transition">← {video.unitName}</Link>
 
       <VideoPlayer url={video.videoURL} videoRef={videoRef} />
 
       <div className="flex items-start justify-between gap-3">
         <div>
-          <h1 className="text-xl font-bold">{video.title}</h1>
-          <p className="text-slate-500 text-sm">{video.description}</p>
+          <h1 className="text-xl font-bold text-white">{video.title}</h1>
+          <p className="text-slate-400 text-sm">{video.description}</p>
           <div className="flex items-center gap-2 mt-2">
             <DifficultyDots level={video.difficulty} />
             {video.tags.map((t) => (
-              <span key={t} className="text-xs px-2 py-0.5 rounded-full bg-brand-50 text-brand-600">#{t}</span>
+              <span key={t} className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-brand-300">#{t}</span>
             ))}
           </div>
         </div>
@@ -65,10 +65,10 @@ export default function VideoPage() {
       </div>
 
       {!showQuiz ? (
-        <div className="bg-white rounded-2xl border border-slate-100 p-6 text-center space-y-3">
-          <div className="font-semibold">Finished watching?</div>
-          <p className="text-sm text-slate-500">Take a quick 3-question check-in to test yourself.</p>
-          <button onClick={() => setShowQuiz(true)} className="px-6 py-3 rounded-xl bg-brand-600 text-white font-semibold hover:bg-brand-700">
+        <div className="bg-white/[0.04] rounded-2xl border border-white/10 p-6 text-center space-y-3">
+          <div className="font-semibold text-white">Finished watching?</div>
+          <p className="text-sm text-slate-400">Take a quick 3-question check-in to test yourself.</p>
+          <button onClick={() => setShowQuiz(true)} className="px-6 py-3 rounded-xl bg-gradient-to-r from-violet-500 to-indigo-600 text-white font-semibold hover:shadow-lg hover:shadow-indigo-500/40 transition">
             Start check-in quiz
           </button>
         </div>
@@ -77,43 +77,43 @@ export default function VideoPage() {
       )}
 
       {completed && (
-        <div className="space-y-5 border-t border-slate-200 pt-5">
+        <div className="space-y-5 border-t border-white/10 pt-5">
           <div>
-            <h2 className="font-semibold mb-2">Rate this lesson</h2>
+            <h2 className="font-semibold mb-2 text-white">Rate this lesson</h2>
             <StarRating rating={user.ratings[video.id] ?? 0} onRate={(s) => rate(video.id, s)} />
           </div>
 
           <div>
-            <h2 className="font-semibold">Explain it back ✍️</h2>
-            <p className="text-sm text-slate-500 mb-2">In your own words, what did this lesson teach? Teaching it back is the best way to remember.</p>
+            <h2 className="font-semibold text-white">Explain it back ✍️</h2>
+            <p className="text-sm text-slate-400 mb-2">In your own words, what did this lesson teach? Teaching it back is the best way to remember.</p>
             <textarea
               value={reflection}
               onChange={(e) => { setReflection(e.target.value); setSavedNote(false) }}
               rows={3}
-              className="w-full rounded-xl border border-slate-300 p-3 text-sm focus:border-brand-500 focus:ring-1 focus:ring-brand-500 outline-none"
+              className="w-full rounded-xl bg-white/[0.04] border border-white/10 text-slate-100 placeholder-slate-500 p-3 text-sm focus:border-brand-400 focus:ring-1 focus:ring-brand-500/40 outline-none"
               placeholder="This lesson taught me…"
             />
-            <button onClick={saveReflection} className="mt-2 px-4 py-2 rounded-lg border border-slate-300 hover:bg-slate-50 text-sm">
+            <button onClick={saveReflection} className="mt-2 px-4 py-2 rounded-lg border border-white/15 hover:bg-white/5 text-sm text-slate-200">
               Save reflection
             </button>
-            {savedNote && <span className="ml-2 text-sm text-green-600">Saved!</span>}
+            {savedNote && <span className="ml-2 text-sm text-emerald-400">Saved!</span>}
             <div className="mt-3 space-y-2">
               {(user.reflections[video.id] ?? []).map((r, i) => (
-                <p key={i} className="text-sm text-slate-600 bg-slate-100 rounded-lg p-3">“{r}”</p>
+                <p key={i} className="text-sm text-slate-300 bg-white/[0.04] border border-white/10 rounded-lg p-3">“{r}”</p>
               ))}
             </div>
           </div>
 
           {next ? (
-            <Link to={`/video/${next.id}`} className="flex items-center justify-between bg-brand-50 rounded-xl p-4 hover:bg-brand-100">
+            <Link to={`/video/${next.id}`} className="flex items-center justify-between bg-white/[0.04] border border-white/10 rounded-xl p-4 hover:border-white/20 hover:bg-white/[0.06] transition-all">
               <div>
-                <div className="text-xs text-slate-500">Up next</div>
-                <div className="font-semibold">{next.title}</div>
+                <div className="text-xs text-slate-400">Up next</div>
+                <div className="font-semibold text-white">{next.title}</div>
               </div>
-              <span className="text-2xl text-brand-600">→</span>
+              <span className="text-2xl text-brand-300">→</span>
             </Link>
           ) : (
-            <p className="text-green-600 font-medium">🏁 You've reached the end — great work!</p>
+            <p className="text-emerald-400 font-medium">🏁 You've reached the end — great work!</p>
           )}
         </div>
       )}
