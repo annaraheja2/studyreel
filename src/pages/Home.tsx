@@ -45,7 +45,7 @@ export default function Home() {
           <h2 className="text-xs font-semibold text-[#8A8071] uppercase tracking-[0.16em]">Courses</h2>
           <span className="text-xs text-[#A99E8D]">{COURSES.length} available</span>
         </div>
-        <div className="grid gap-px sm:grid-cols-2 rounded-xl overflow-hidden border border-[#E1D8C8] bg-[#E1D8C8] shadow-warm">
+        <div className="space-y-3">
           {COURSES.map((course, i) => {
             const a = ACCENTS[i % ACCENTS.length]
             const total = courseLessonCount(course)
@@ -57,26 +57,24 @@ export default function Home() {
               <Link
                 key={course.id}
                 to={`/course/${course.id}`}
-                className="group bg-[#FBF8F2] hover:bg-[#F6F0E5] transition-colors p-6"
+                className="group flex items-center gap-4 bg-[#FBF8F2] rounded-xl border border-[#E1D8C8] shadow-warmSm p-5 hover:border-[#C7B9A2] hover:shadow-warm transition-all"
               >
-                <div className="flex items-start gap-4">
-                  <span className={`grid place-items-center w-11 h-11 rounded-lg font-bold text-lg shrink-0 ${a.badge}`}>
-                    {initial}
-                  </span>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-1.5">
-                      <span className="font-semibold text-[#2B2620] truncate">{course.name}</span>
-                      <ArrowRight className="w-4 h-4 text-[#A99E8D] group-hover:text-[#2B2620] group-hover:translate-x-0.5 transition-all" />
-                    </div>
-                    <div className="text-sm text-[#8A8071] line-clamp-1 mt-0.5">{course.description}</div>
+                <span className={`grid place-items-center w-12 h-12 rounded-lg font-bold text-lg shrink-0 ${a.badge}`}>
+                  {initial}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-semibold text-[#2B2620] truncate">{course.name}</span>
+                    <ArrowRight className="w-4 h-4 text-[#A99E8D] group-hover:text-[#2B2620] group-hover:translate-x-0.5 transition-all" />
+                  </div>
+                  <div className="text-sm text-[#8A8071] line-clamp-1 mt-0.5">{course.description}</div>
+                  <div className="h-1 bg-[#E1D8C8] rounded-full mt-2.5 overflow-hidden max-w-md">
+                    <div className={`h-full rounded-full ${a.bar} transition-all`} style={{ width: `${pct}%` }} />
                   </div>
                 </div>
-                <div className="mt-5 flex items-center justify-between text-xs">
-                  <span className={`font-medium ${a.text}`}>{pct}%</span>
-                  <span className="text-[#A99E8D]">{course.units.length} units · {total} lessons</span>
-                </div>
-                <div className="h-1 bg-[#E1D8C8] rounded-full mt-2 overflow-hidden">
-                  <div className={`h-full rounded-full ${a.bar} transition-all`} style={{ width: `${pct}%` }} />
+                <div className="text-right shrink-0 hidden sm:block">
+                  <div className={`text-sm font-semibold ${a.text}`}>{pct}%</div>
+                  <div className="text-xs text-[#A99E8D] mt-0.5">{course.units.length} units · {total} lessons</div>
                 </div>
               </Link>
             )
