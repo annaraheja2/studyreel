@@ -24,7 +24,7 @@ export default function VideoUpload({ onUploaded }: { onUploaded: (url: string) 
   }
 
   if (!cloudinaryReady) {
-    return <p className="text-xs text-[#6E6459]">Drag-and-drop upload isn’t connected yet.</p>
+    return <p className="text-xs text-[#566573]">Drag-and-drop upload isn’t connected yet.</p>
   }
 
   return (
@@ -33,7 +33,7 @@ export default function VideoUpload({ onUploaded }: { onUploaded: (url: string) 
         onClick={() => inputRef.current?.click()}
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => { e.preventDefault(); handleFile(e.dataTransfer.files[0]) }}
-        className="border-2 border-dashed border-[#D8CCB9] rounded-xl p-4 text-center text-sm text-[#6E6459] cursor-pointer hover:border-brand-400 hover:bg-[#F1EBDF] transition"
+        className="border-2 border-dashed border-[#B9D2E8] rounded-xl p-4 text-center text-sm text-[#566573] cursor-pointer hover:border-brand-400 hover:bg-[#E2EFFA] transition"
       >
         <input ref={inputRef} type="file" accept="video/*" className="hidden"
           onChange={(e) => handleFile(e.target.files?.[0])} />

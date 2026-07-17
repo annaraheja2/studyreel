@@ -8,12 +8,12 @@
 }
 
 body {
-  @apply text-[#2B2620] antialiased;
+  @apply text-[#1F2A36] antialiased;
   min-height: 100vh;
   background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='28'%3E%3Cpath d='M0 14 Q 35 0 70 14 T 140 14' fill='none' stroke='%233c3022' stroke-opacity='0.10' stroke-width='1.4'/%3E%3C/svg%3E") 0 0 / 140px 28px repeat,
-    radial-gradient(900px 520px at 50% -20%, rgba(150, 118, 82, 0.10), transparent 62%) no-repeat,
-    #ece5d8;
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='28'%3E%3Cpath d='M0 14 Q 35 0 70 14 T 140 14' fill='none' stroke='%231e3a52' stroke-opacity='0.10' stroke-width='1.4'/%3E%3C/svg%3E") 0 0 / 140px 28px repeat,
+    radial-gradient(900px 520px at 50% -20%, rgba(70, 130, 200, 0.16), transparent 62%) no-repeat,
+    #C9E3F7;
   background-attachment: fixed;
   letter-spacing: -0.011em;
 }

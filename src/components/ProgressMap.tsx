@@ -7,18 +7,18 @@ export default function ProgressMap({ units }: { units: Unit[] }) {
   const { user } = useUser()
 
   return (
-    <div className="rounded-xl overflow-hidden border border-[#E1D8C8] divide-y divide-[#E7DFD0] shadow-warm">
+    <div className="rounded-xl overflow-hidden border border-[#CADDEE] divide-y divide-[#D3E4F2] shadow-warm">
       {units.map((unit, ui) => (
-        <div key={unit.id} className="bg-[#FBF8F2] hover:bg-[#F6F0E5] transition-colors p-5">
+        <div key={unit.id} className="bg-[#FBFDFF] hover:bg-[#EDF5FC] transition-colors p-5">
           <Link to={`/unit/${unit.id}`} className="flex items-center gap-3.5 group">
-            <span className="grid place-items-center w-9 h-9 rounded-lg bg-[#F4EEE3] border border-[#E1D8C8] text-[#6E6459] text-sm font-semibold shrink-0">
+            <span className="grid place-items-center w-9 h-9 rounded-lg bg-[#E9F2FB] border border-[#CADDEE] text-[#566573] text-sm font-semibold shrink-0">
               {String(ui + 1).padStart(2, '0')}
             </span>
             <div className="flex-1 min-w-0">
-              <div className="font-semibold text-[#2B2620] group-hover:text-[#2B2620] transition truncate">{unit.name}</div>
-              <div className="text-xs text-[#8A8071] truncate">{unit.description}</div>
+              <div className="font-semibold text-[#1F2A36] group-hover:text-[#1F2A36] transition truncate">{unit.name}</div>
+              <div className="text-xs text-[#74828F] truncate">{unit.description}</div>
             </div>
-            <ChevronRight className="w-4 h-4 text-[#A99E8D] group-hover:text-[#2B2620] transition" />
+            <ChevronRight className="w-4 h-4 text-[#93A2B0] group-hover:text-[#1F2A36] transition" />
           </Link>
 
           <div className="flex items-center mt-4 pl-[3.25rem]">
@@ -30,13 +30,13 @@ export default function ProgressMap({ units }: { units: Unit[] }) {
                     to={`/video/${lesson.id}`}
                     title={lesson.title}
                     className={`grid place-items-center w-7 h-7 shrink-0 rounded-md text-xs font-semibold transition hover:scale-105 ${
-                      done ? 'bg-[#2B2620] text-[#F4EFE6]' : 'bg-[#E1D8C8] text-[#4A4136] border border-[#E1D8C8] hover:border-[#C7B9A2]'
+                      done ? 'bg-[#1F2A36] text-[#F4F9FE]' : 'bg-[#CADDEE] text-[#3A4653] border border-[#CADDEE] hover:border-[#A6C6E0]'
                     }`}
                   >
                     {done ? <Check className="w-4 h-4" /> : idx + 1}
                   </Link>
                   {idx < unit.lessons.length - 1 && (
-                    <div className={`h-px flex-1 mx-1.5 ${done ? 'bg-[#2B2620]/40' : 'bg-[#E1D8C8]'}`} />
+                    <div className={`h-px flex-1 mx-1.5 ${done ? 'bg-[#1F2A36]/40' : 'bg-[#CADDEE]'}`} />
                   )}
                 </div>
               )

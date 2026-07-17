@@ -45,16 +45,16 @@ export default function Quiz({ videoId, onRewatch }: { videoId: string; onRewatc
   if (finished) {
     const passed = quizPassed(state)
     return (
-      <div className="rounded-xl border border-[#E1D8C8] bg-[#FBF8F2] p-8 text-center space-y-3">
-        <div className={`mx-auto grid place-items-center w-12 h-12 rounded-full ${passed ? 'bg-emerald-500/15 text-emerald-700' : 'bg-[#E1D8C8] text-[#4A4136]'}`}>
+      <div className="rounded-xl border border-[#CADDEE] bg-[#FBFDFF] p-8 text-center space-y-3">
+        <div className={`mx-auto grid place-items-center w-12 h-12 rounded-full ${passed ? 'bg-emerald-500/15 text-emerald-700' : 'bg-[#CADDEE] text-[#3A4653]'}`}>
           {passed ? <Check className="w-6 h-6" /> : <Rewind className="w-6 h-6" />}
         </div>
-        <div className="text-lg font-bold text-[#2B2620]">{passed ? 'Check-in passed' : 'Almost there'}</div>
-        <div className="text-[#6E6459] text-sm">You got {state.correct} of {total} correct.</div>
+        <div className="text-lg font-bold text-[#1F2A36]">{passed ? 'Check-in passed' : 'Almost there'}</div>
+        <div className="text-[#566573] text-sm">You got {state.correct} of {total} correct.</div>
         {!passed && (
           <>
-            <div className="text-sm text-[#8A8071]">You need {PASS_THRESHOLD} correct. Rewatch and try again.</div>
-            <button onClick={onRewatch} className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md border border-[#D8CCB9] hover:bg-[#F1EBDF] text-sm text-[#3A332B] transition">
+            <div className="text-sm text-[#74828F]">You need {PASS_THRESHOLD} correct. Rewatch and try again.</div>
+            <button onClick={onRewatch} className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md border border-[#B9D2E8] hover:bg-[#E2EFFA] text-sm text-[#2A3644] transition">
               <Rewind className="w-4 h-4" /> Rewatch lesson
             </button>
           </>
@@ -66,22 +66,22 @@ export default function Quiz({ videoId, onRewatch }: { videoId: string; onRewatc
   if (!q) return null
 
   return (
-    <div className="rounded-xl border border-[#E1D8C8] bg-[#FBF8F2] shadow-warmSm p-5 space-y-4">
+    <div className="rounded-xl border border-[#CADDEE] bg-[#FBFDFF] shadow-warmSm p-5 space-y-4">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-semibold tracking-wide text-[#8A8071] uppercase">
+        <span className="text-xs font-semibold tracking-wide text-[#74828F] uppercase">
           Question {state.answered + 1} of {total}
         </span>
         <DifficultyDots level={q.difficulty} />
       </div>
-      <div className="font-semibold text-lg text-[#2B2620]">{q.text}</div>
+      <div className="font-semibold text-lg text-[#1F2A36]">{q.text}</div>
 
       <div className="space-y-2">
         {q.options.map((opt, idx) => {
-          let cls = 'border-[#E1D8C8] bg-[#FBF8F2] text-[#3A332B] hover:border-[#C7B9A2] hover:bg-[#F1EBDF]'
+          let cls = 'border-[#CADDEE] bg-[#FBFDFF] text-[#2A3644] hover:border-[#A6C6E0] hover:bg-[#E2EFFA]'
           if (showFeedback) {
-            if (idx === q.correct) cls = 'border-emerald-400/50 bg-emerald-500/10 text-[#2B2620]'
-            else if (idx === selected) cls = 'border-red-400/50 bg-red-500/10 text-[#2B2620]'
-            else cls = 'border-[#E1D8C8] text-[#8A8071] opacity-60'
+            if (idx === q.correct) cls = 'border-emerald-400/50 bg-emerald-500/10 text-[#1F2A36]'
+            else if (idx === selected) cls = 'border-red-400/50 bg-red-500/10 text-[#1F2A36]'
+            else cls = 'border-[#CADDEE] text-[#74828F] opacity-60'
           }
           return (
             <button
@@ -105,15 +105,15 @@ export default function Quiz({ videoId, onRewatch }: { videoId: string; onRewatc
           <div className={`text-sm font-semibold ${selected === q.correct ? 'text-emerald-700' : 'text-amber-400'}`}>
             {selected === q.correct ? 'Correct' : 'Not quite'}
           </div>
-          <p className="text-[#4A4136] text-sm leading-relaxed">{q.explanation}</p>
+          <p className="text-[#3A4653] text-sm leading-relaxed">{q.explanation}</p>
           {selected !== q.correct && (
-            <button onClick={onRewatch} className="inline-flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-md border border-[#D8CCB9] hover:bg-[#F1EBDF] text-[#3A332B] transition">
+            <button onClick={onRewatch} className="inline-flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-md border border-[#B9D2E8] hover:bg-[#E2EFFA] text-[#2A3644] transition">
               <Rewind className="w-4 h-4" /> Rewatch this lesson
             </button>
           )}
           <button
             onClick={advance}
-            className="w-full py-2.5 rounded-md bg-[#2B2620] text-[#F4EFE6] font-semibold hover:bg-[#3D352B] transition"
+            className="w-full py-2.5 rounded-md bg-[#1F2A36] text-[#F4F9FE] font-semibold hover:bg-[#2E3B49] transition"
           >
             {state.answered + 1 >= total ? 'See results' : 'Next question'}
           </button>

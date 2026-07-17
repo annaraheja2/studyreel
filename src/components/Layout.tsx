@@ -19,32 +19,32 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="sticky top-0 z-10 bg-[#ece5d8]/85 backdrop-blur-xl border-b border-[#E1D8C8]">
+      <header className="sticky top-0 z-10 bg-[#C9E3F7]/85 backdrop-blur-xl border-b border-[#CADDEE]">
         <div className="max-w-5xl mx-auto px-5 h-16 flex items-center gap-4">
           <Link to="/" className="shrink-0 flex items-center gap-2.5">
-            <span className="relative grid place-items-center w-7 h-7 rounded-full bg-[#2B2620] overflow-hidden">
-              <span className="absolute w-4 h-4 rounded-full bg-[#ece5d8] translate-x-1.5 -translate-y-0.5" />
+            <span className="relative grid place-items-center w-7 h-7 rounded-full bg-[#1F2A36] overflow-hidden">
+              <span className="absolute w-4 h-4 rounded-full bg-[#C9E3F7] translate-x-1.5 -translate-y-0.5" />
             </span>
-            <span className="font-semibold text-[15px] tracking-tight text-[#2B2620]">Eclipse Learning</span>
+            <span className="font-semibold text-[15px] tracking-tight text-[#1F2A36]">Eclipse Learning</span>
           </Link>
           <form onSubmit={submit} className="flex-1 max-w-xs">
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search"
-              className="w-full px-3.5 py-1.5 rounded-md bg-[#F4EEE3] border border-[#E1D8C8] text-[#2B2620] placeholder-[#A99E8D] focus:border-[#C7B9A2] focus:bg-[#E7DFD0] outline-none text-sm transition"
+              className="w-full px-3.5 py-1.5 rounded-md bg-[#E9F2FB] border border-[#CADDEE] text-[#1F2A36] placeholder-[#93A2B0] focus:border-[#A6C6E0] focus:bg-[#D3E4F2] outline-none text-sm transition"
             />
           </form>
           <nav className="flex items-center gap-4 text-sm shrink-0">
-            <Link to="/videos" className="inline-flex items-center gap-1.5 text-[#6E6459] hover:text-[#2B2620] transition font-medium">
+            <Link to="/videos" className="inline-flex items-center gap-1.5 text-[#566573] hover:text-[#1F2A36] transition font-medium">
               <Film className="w-[18px] h-[18px]" /><span className="hidden sm:inline">Videos</span>
             </Link>
-            <Link to="/bookmarks" className="text-[#6E6459] hover:text-[#2B2620] transition"><Bookmark /></Link>
+            <Link to="/bookmarks" className="text-[#566573] hover:text-[#1F2A36] transition"><Bookmark /></Link>
 
             {!user ? (
               <Link
                 to="/login"
-                className="px-4 py-1.5 rounded-md bg-[#2B2620] text-[#F4EFE6] font-semibold hover:bg-[#3D352B] transition"
+                className="px-4 py-1.5 rounded-md bg-[#1F2A36] text-[#F4F9FE] font-semibold hover:bg-[#2E3B49] transition"
               >
                 Sign in
               </Link>
@@ -52,25 +52,25 @@ export default function Layout({ children }: { children: ReactNode }) {
               <div className="relative">
                 <button
                   onClick={() => setMenuOpen((o) => !o)}
-                  className="flex items-center gap-2 pl-1 pr-2 py-1 rounded-md hover:bg-[#F1EBDF] transition"
+                  className="flex items-center gap-2 pl-1 pr-2 py-1 rounded-md hover:bg-[#E2EFFA] transition"
                 >
-                  <span className="w-7 h-7 rounded-md bg-[#E1D8C8] text-[#2B2620] flex items-center justify-center text-xs font-bold uppercase">
+                  <span className="w-7 h-7 rounded-md bg-[#CADDEE] text-[#1F2A36] flex items-center justify-center text-xs font-bold uppercase">
                     {firstName[0]}
                   </span>
-                  <span className="hidden sm:inline max-w-[8rem] truncate text-[#3A332B]">{firstName}</span>
-                  {isAdmin && <span className="text-[10px] font-bold tracking-wide px-1.5 py-0.5 rounded bg-[#E1D8C8] text-[#4A4136]">OWNER</span>}
+                  <span className="hidden sm:inline max-w-[8rem] truncate text-[#2A3644]">{firstName}</span>
+                  {isAdmin && <span className="text-[10px] font-bold tracking-wide px-1.5 py-0.5 rounded bg-[#CADDEE] text-[#3A4653]">OWNER</span>}
                 </button>
                 {menuOpen && (
                   <div
-                    className="absolute right-0 mt-2 w-52 bg-[#FBF8F2] border border-[#E1D8C8] rounded-lg shadow-2xl py-1 text-[#4A4136]"
+                    className="absolute right-0 mt-2 w-52 bg-[#FBFDFF] border border-[#CADDEE] rounded-lg shadow-2xl py-1 text-[#3A4653]"
                     onClick={() => setMenuOpen(false)}
                   >
-                    <div className="px-3 py-2 text-xs text-[#8A8071] truncate border-b border-[#E1D8C8]">{user.email}</div>
-                    <Link to="/bookmarks" className="block px-3 py-2 hover:bg-[#F1EBDF] hover:text-[#2B2620] transition">Saved lessons</Link>
-                    {isAdmin && <Link to="/admin" className="block px-3 py-2 hover:bg-[#F1EBDF] hover:text-[#2B2620] transition">Admin</Link>}
+                    <div className="px-3 py-2 text-xs text-[#74828F] truncate border-b border-[#CADDEE]">{user.email}</div>
+                    <Link to="/bookmarks" className="block px-3 py-2 hover:bg-[#E2EFFA] hover:text-[#1F2A36] transition">Saved lessons</Link>
+                    {isAdmin && <Link to="/admin" className="block px-3 py-2 hover:bg-[#E2EFFA] hover:text-[#1F2A36] transition">Admin</Link>}
                     <button
                       onClick={() => logOut()}
-                      className="w-full text-left px-3 py-2 hover:bg-[#F1EBDF] text-[#6E6459] hover:text-[#2B2620] transition"
+                      className="w-full text-left px-3 py-2 hover:bg-[#E2EFFA] text-[#566573] hover:text-[#1F2A36] transition"
                     >
                       Log out
                     </button>
@@ -84,7 +84,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <main className="flex-1 max-w-5xl w-full mx-auto px-5 py-8">
         <div key={location.pathname} className="animate-in">{children}</div>
       </main>
-      <footer className="text-center text-xs text-[#A99E8D] py-8 px-5 border-t border-[#E7DFD0]">
+      <footer className="text-center text-xs text-[#93A2B0] py-8 px-5 border-t border-[#D3E4F2]">
         Eclipse Learning
       </footer>
     </div>
