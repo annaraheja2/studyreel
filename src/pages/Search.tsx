@@ -8,17 +8,17 @@ export default function Search() {
   const results = search(q)
 
   return (
-    <div className="space-y-4">
-      <h1 className="text-xl font-bold text-white">Search results for “{q}”</h1>
+    <div className="space-y-5">
+      <h1 className="text-xl font-bold text-white tracking-tight">Results for “{q}”</h1>
       {results.length === 0 ? (
         <p className="text-slate-400">No lessons match “{q}”. Try “fractions”, “algebra”, or “angles”.</p>
       ) : (
-        <div className="space-y-3">
+        <div className="rounded-xl overflow-hidden border border-white/10 divide-y divide-white/[0.07]">
           {results.map((v) => (
-            <Link key={v.id} to={`/video/${v.id}`} className="block bg-white/[0.04] rounded-2xl border border-white/10 p-4 hover:border-white/20 hover:bg-white/[0.06] transition-all">
+            <Link key={v.id} to={`/video/${v.id}`} className="block bg-[#06070b] hover:bg-white/[0.02] transition-colors p-4">
               <div className="font-semibold text-white">{v.title}</div>
-              <div className="text-xs text-brand-300">{v.unitEmoji} {v.unitName}</div>
-              <div className="text-sm text-slate-400 truncate">{v.description}</div>
+              <div className="text-xs text-slate-500 mt-0.5">{v.courseName} · {v.unitName}</div>
+              <div className="text-sm text-slate-500 truncate mt-1">{v.description}</div>
             </Link>
           ))}
         </div>

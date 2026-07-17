@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom'
 import { useUser } from '../lib/UserContext'
 import { useContent } from '../lib/ContentContext'
 import { DifficultyDots } from '../components/StarRating'
+import { ArrowLeft, Check, Play, ChevronRight } from '../components/icons'
 
 export default function LevelPage() {
   const { unitId } = useParams()
@@ -9,34 +10,36 @@ export default function LevelPage() {
   const { getUnit } = useContent()
   const unit = unitId ? getUnit(unitId) : undefined
 
-  if (!unit) return <p className="text-slate-400">Unit not found. <Link to="/" className="text-brand-300">Go home</Link></p>
+  if (!unit) return <p className="text-slate-400">Unit not found. <Link to="/" className="text-white underline">Go home</Link></p>
 
   return (
-    <div className="space-y-4">
-      <Link to={`/course/${unit.courseId}`} className="text-sm text-slate-400 hover:text-brand-300 font-medium transition">← {unit.courseName}</Link>
+    <div className="space-y-6">
+      <Link to={`/course/${unit.courseId}`} className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-white transition">
+        <ArrowLeft className="w-4 h-4" /> {unit.courseName}
+      </Link>
       <div>
-        <h1 className="text-2xl font-extrabold tracking-tight">{unit.emoji} {unit.name}</h1>
-        <p className="text-slate-400">{unit.description}</p>
+        <h1 className="text-2xl font-extrabold tracking-tight text-white">{unit.name}</h1>
+        <p className="text-slate-400 mt-1">{unit.description}</p>
       </div>
 
-      <div className="space-y-3">
+      <div className="rounded-xl overflow-hidden border border-white/10 divide-y divide-white/[0.07]">
         {unit.lessons.map((lesson) => {
           const done = user.completed.includes(lesson.id)
           return (
             <Link
               key={lesson.id}
               to={`/video/${lesson.id}`}
-              className="flex items-center gap-4 bg-white/[0.04] rounded-2xl border border-white/10 p-4 hover:border-white/20 hover:bg-white/[0.06] transition-all"
+              className="flex items-center gap-4 bg-[#06070b] hover:bg-white/[0.02] transition-colors p-4"
             >
-              <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0 text-white bg-gradient-to-br ${done ? 'from-emerald-400 to-teal-500' : 'from-violet-500 to-indigo-600'}`}>
-                {done ? '✓' : '▶'}
+              <div className={`grid place-items-center w-10 h-10 rounded-lg shrink-0 ${done ? 'bg-white text-[#06070b]' : 'bg-white/[0.05] border border-white/10 text-slate-300'}`}>
+                {done ? <Check className="w-5 h-5" /> : <Play className="w-4 h-4" />}
               </div>
               <div className="flex-1 min-w-0">
-                <div className="font-semibold text-white">{lesson.title}</div>
-                <div className="text-xs text-slate-400 truncate">{lesson.description}</div>
-                <div className="mt-1"><DifficultyDots level={lesson.difficulty} /></div>
+                <div className="font-semibold text-white truncate">{lesson.title}</div>
+                <div className="text-xs text-slate-500 truncate">{lesson.description}</div>
+                <div className="mt-1.5"><DifficultyDots level={lesson.difficulty} /></div>
               </div>
-              <span className="text-slate-500">›</span>
+              <ChevronRight className="w-4 h-4 text-slate-600" />
             </Link>
           )
         })}

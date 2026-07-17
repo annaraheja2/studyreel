@@ -50,7 +50,6 @@ export default function Admin() {
   if (!user || !isAdmin) {
     return (
       <div className="max-w-md mx-auto mt-10 text-center space-y-3">
-        <div className="text-4xl">🔒</div>
         <h1 className="text-xl font-bold">Owners only</h1>
         <p className="text-slate-500">This area is for StudyReel administrators.</p>
         <Link to="/" className="inline-block text-brand-600">← Back to home</Link>
@@ -68,7 +67,7 @@ export default function Admin() {
     const name = prompt('New course name?')
     if (!name) return
     const newCourse: Course = {
-      id: `course-${Date.now()}`, name, description: '', emoji: '📘', units: [],
+      id: `course-${Date.now()}`, name, description: '', emoji: '', units: [],
     }
     setBusy(true)
     try { await saveCourses([...courses, newCourse]); navigate(`/admin/course/${newCourse.id}`) }
@@ -94,7 +93,7 @@ export default function Admin() {
       {/* Content management */}
       <div className="bg-white/[0.04] rounded-2xl border border-white/10 p-5">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="font-semibold">📚 Courses & content</h2>
+          <h2 className="font-semibold">Courses & content</h2>
           {!usingStarter && (
             <button onClick={addCourse} disabled={busy} className="text-sm px-3 py-1.5 rounded-lg bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50">
               + Add course
@@ -116,14 +115,13 @@ export default function Admin() {
         ) : (
           <div className="space-y-2">
             {courses.map((c) => (
-              <div key={c.id} className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/10">
-                <span className="text-2xl">{c.emoji}</span>
+              <div key={c.id} className="flex items-center gap-3 p-3 rounded-lg bg-white/[0.03] border border-white/10">
                 <div className="flex-1 min-w-0">
-                  <div className="font-medium">{c.name}</div>
+                  <div className="font-medium text-white">{c.name}</div>
                   <div className="text-xs text-slate-500">{c.units.length} units · {courseLessonCount(c)} lessons</div>
                 </div>
-                <Link to={`/admin/course/${c.id}`} className="text-sm px-3 py-1.5 rounded-lg border border-white/15 hover:bg-white/10 text-slate-100">Edit</Link>
-                <button onClick={() => deleteCourse(c.id, c.name)} disabled={busy} className="text-sm px-2 py-1.5 rounded-lg text-red-600 hover:bg-red-50">Delete</button>
+                <Link to={`/admin/course/${c.id}`} className="text-sm px-3 py-1.5 rounded-md border border-white/15 hover:bg-white/10 text-slate-100 transition">Edit</Link>
+                <button onClick={() => deleteCourse(c.id, c.name)} disabled={busy} className="text-sm px-2 py-1.5 rounded-md text-red-400 hover:bg-red-500/10 transition">Delete</button>
               </div>
             ))}
             {courses.length === 0 && <p className="text-sm text-slate-500">No courses yet. Click “Add course” to create one.</p>}
@@ -134,7 +132,7 @@ export default function Admin() {
       {/* Student reflections */}
       <div className="bg-white/[0.04] rounded-2xl border border-white/10 p-5">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="font-semibold">✍️ Student “Explain it back” reflections</h2>
+          <h2 className="font-semibold">Student reflections</h2>
           <span className="text-xs text-slate-400">{reflections.length} total</span>
         </div>
         {loading ? (

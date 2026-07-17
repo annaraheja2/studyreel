@@ -53,9 +53,9 @@ export default function Login() {
         <button
           onClick={google}
           disabled={busy}
-          className="w-full mt-5 py-2.5 rounded-xl border border-white/15 font-medium text-slate-100 hover:bg-white/5 flex items-center justify-center gap-2 disabled:opacity-60"
+          className="w-full mt-5 py-2.5 rounded-md border border-white/15 font-medium text-slate-100 hover:bg-white/[0.05] flex items-center justify-center gap-2 disabled:opacity-60 transition"
         >
-          <span className="text-lg">🔵</span> Continue with Google
+          Continue with Google
         </button>
 
         <div className="flex items-center gap-3 my-4">
@@ -88,7 +88,7 @@ export default function Login() {
 
           <button
             type="submit" disabled={busy}
-            className="w-full py-2.5 rounded-xl bg-gradient-to-r from-violet-500 to-indigo-600 text-white font-semibold hover:shadow-lg hover:shadow-indigo-500/40 transition disabled:opacity-60"
+            className="w-full py-2.5 rounded-md bg-white text-[#06070b] font-semibold hover:bg-slate-200 transition disabled:opacity-60"
           >
             {busy ? 'Please wait…' : mode === 'signup' ? 'Create account' : 'Log in'}
           </button>

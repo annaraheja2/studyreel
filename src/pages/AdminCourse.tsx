@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { useAuth } from '../lib/AuthContext'
 import { useContent } from '../lib/ContentContext'
 import VideoUpload from '../components/VideoUpload'
+import { Trash, ArrowLeft } from '../components/icons'
 import type { Course, Question } from '../data/content'
 
 const newQuestion = (): Question => ({ text: '', options: ['', '', '', ''], correct: 0, explanation: '', difficulty: 2 })
@@ -22,7 +23,7 @@ export default function AdminCourse() {
   if (!ready) return <p className="text-slate-500">Loading…</p>
   if (!isAdmin) return (
     <div className="max-w-md mx-auto mt-10 text-center space-y-3">
-      <div className="text-4xl">🔒</div><h1 className="text-xl font-bold">Owners only</h1>
+      <h1 className="text-xl font-bold">Owners only</h1>
       <Link to="/" className="inline-block text-brand-600">← Home</Link>
     </div>
   )
@@ -50,17 +51,13 @@ export default function AdminCourse() {
 
   return (
     <div className="space-y-5 pb-24">
-      <Link to="/admin" className="text-sm text-brand-600">← Admin</Link>
+      <Link to="/admin" className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-white transition"><ArrowLeft className="w-4 h-4" /> Admin</Link>
 
       {/* Course details */}
       <div className="bg-white/[0.04] rounded-2xl border border-white/10 p-5 space-y-3">
         <h1 className="font-bold text-lg">Edit course</h1>
-        <div className="flex gap-2">
-          <input className={input + ' w-20 text-center text-xl'} value={draft.emoji}
-            onChange={(e) => edit((c) => { c.emoji = e.target.value })} placeholder="📘" />
-          <input className={input} value={draft.name}
-            onChange={(e) => edit((c) => { c.name = e.target.value })} placeholder="Course name" />
-        </div>
+        <input className={input} value={draft.name}
+          onChange={(e) => edit((c) => { c.name = e.target.value })} placeholder="Course name" />
         <textarea className={input} rows={2} value={draft.description}
           onChange={(e) => edit((c) => { c.description = e.target.value })} placeholder="Course description" />
       </div>
@@ -70,11 +67,9 @@ export default function AdminCourse() {
         <div key={unit.id} className="bg-white/[0.04] rounded-2xl border border-white/10 p-4">
           <div className="flex items-center gap-2">
             <button onClick={() => toggle(unit.id)} className="text-slate-500 w-5">{open[unit.id] ? '▾' : '▸'}</button>
-            <input className={input + ' w-16 text-center'} value={unit.emoji}
-              onChange={(e) => edit((c) => { c.units[ui].emoji = e.target.value })} />
             <input className={input + ' font-semibold'} value={unit.name}
               onChange={(e) => edit((c) => { c.units[ui].name = e.target.value })} placeholder="Unit name" />
-            <button onClick={() => edit((c) => { c.units.splice(ui, 1) })} className="text-red-500 text-sm px-2">🗑</button>
+            <button onClick={() => edit((c) => { c.units.splice(ui, 1) })} className="text-slate-500 hover:text-red-400 transition px-2"><Trash className="w-4 h-4" /></button>
           </div>
 
           {open[unit.id] && (
@@ -89,7 +84,7 @@ export default function AdminCourse() {
                     <button onClick={() => toggle(lesson.id)} className="text-slate-500 w-5">{open[lesson.id] ? '▾' : '▸'}</button>
                     <input className={input} value={lesson.title}
                       onChange={(e) => edit((c) => { c.units[ui].lessons[li].title = e.target.value })} placeholder="Lesson title" />
-                    <button onClick={() => edit((c) => { c.units[ui].lessons.splice(li, 1) })} className="text-red-500 text-sm px-2">🗑</button>
+                    <button onClick={() => edit((c) => { c.units[ui].lessons.splice(li, 1) })} className="text-slate-500 hover:text-red-400 transition px-2"><Trash className="w-4 h-4" /></button>
                   </div>
 
                   {open[lesson.id] && (
@@ -123,7 +118,7 @@ export default function AdminCourse() {
                             <div className="flex gap-2">
                               <input className={input} value={qq.text}
                                 onChange={(e) => edit((c) => { c.units[ui].lessons[li].questions[qi].text = e.target.value })} placeholder={`Question ${qi + 1}`} />
-                              <button onClick={() => edit((c) => { c.units[ui].lessons[li].questions.splice(qi, 1) })} className="text-red-500 text-sm px-1">🗑</button>
+                              <button onClick={() => edit((c) => { c.units[ui].lessons[li].questions.splice(qi, 1) })} className="text-slate-500 hover:text-red-400 transition px-1"><Trash className="w-4 h-4" /></button>
                             </div>
                             {qq.options.map((opt, oi) => (
                               <div key={oi} className="flex items-center gap-2">
@@ -162,7 +157,7 @@ export default function AdminCourse() {
 
       <button
         onClick={() => edit((c) => {
-          c.units.push({ id: `unit-${crypto.randomUUID().slice(0, 8)}`, name: 'New unit', description: '', emoji: '📄', lessons: [] })
+          c.units.push({ id: `unit-${crypto.randomUUID().slice(0, 8)}`, name: 'New unit', description: '', emoji: '', lessons: [] })
         })}
         className="text-sm px-3 py-2 rounded-lg border border-white/15 hover:bg-white/10 text-slate-100"
       >+ Add unit</button>

@@ -2,80 +2,75 @@ import { Link } from 'react-router-dom'
 import { courseLessonCount } from '../data/content'
 import { useUser } from '../lib/UserContext'
 import { useContent } from '../lib/ContentContext'
+import { ArrowRight } from '../components/icons'
 
-// Rich accent set — each course glows in its own color on hover.
+// Restrained, refined accents — a single muted color per course.
 const ACCENTS = [
-  { grad: 'from-violet-500 to-indigo-600', text: 'text-violet-300', bar: 'from-violet-500 to-indigo-500', glow: 'hover:shadow-[0_18px_50px_-18px_rgba(124,58,237,0.65)]' },
-  { grad: 'from-sky-500 to-blue-600', text: 'text-sky-300', bar: 'from-sky-500 to-blue-500', glow: 'hover:shadow-[0_18px_50px_-18px_rgba(56,189,248,0.6)]' },
-  { grad: 'from-amber-400 to-orange-500', text: 'text-amber-300', bar: 'from-amber-400 to-orange-500', glow: 'hover:shadow-[0_18px_50px_-18px_rgba(251,146,60,0.6)]' },
-  { grad: 'from-emerald-400 to-teal-600', text: 'text-emerald-300', bar: 'from-emerald-400 to-teal-500', glow: 'hover:shadow-[0_18px_50px_-18px_rgba(45,212,191,0.6)]' },
-  { grad: 'from-rose-500 to-pink-600', text: 'text-rose-300', bar: 'from-rose-500 to-pink-500', glow: 'hover:shadow-[0_18px_50px_-18px_rgba(244,63,94,0.6)]' },
+  { badge: 'bg-indigo-500/15 text-indigo-300 ring-1 ring-indigo-400/20', bar: 'bg-indigo-400', text: 'text-indigo-300' },
+  { badge: 'bg-sky-500/15 text-sky-300 ring-1 ring-sky-400/20', bar: 'bg-sky-400', text: 'text-sky-300' },
+  { badge: 'bg-violet-500/15 text-violet-300 ring-1 ring-violet-400/20', bar: 'bg-violet-400', text: 'text-violet-300' },
+  { badge: 'bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-400/20', bar: 'bg-emerald-400', text: 'text-emerald-300' },
+  { badge: 'bg-amber-500/15 text-amber-300 ring-1 ring-amber-400/20', bar: 'bg-amber-400', text: 'text-amber-300' },
 ]
-
-const GRID = {
-  backgroundImage:
-    'linear-gradient(to right, rgba(255,255,255,0.055) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.055) 1px, transparent 1px)',
-  backgroundSize: '46px 46px',
-  maskImage: 'radial-gradient(120% 80% at 50% 0%, #000 30%, transparent 75%)',
-  WebkitMaskImage: 'radial-gradient(120% 80% at 50% 0%, #000 30%, transparent 75%)',
-}
 
 export default function Home() {
   const { user } = useUser()
   const { courses: COURSES } = useContent()
 
   return (
-    <div className="space-y-8">
-      {/* Rich, cool hero */}
-      <section className="relative overflow-hidden rounded-[28px] p-8 sm:p-12 bg-slate-950 text-white">
-        <div className="absolute -top-24 -left-12 w-80 h-80 rounded-full bg-violet-600/30 blur-3xl" />
-        <div className="absolute -top-10 right-0 w-72 h-72 rounded-full bg-fuchsia-500/25 blur-3xl" />
-        <div className="absolute -bottom-28 left-1/3 w-96 h-96 rounded-full bg-indigo-500/25 blur-3xl" />
-        <div className="absolute inset-0" style={GRID} />
-        <div className="relative">
-          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-indigo-100 bg-white/10 border border-white/15 backdrop-blur rounded-full px-3 py-1 mb-5">
-            ✦ Bite-sized math, done right
-          </span>
-          <h1 className="text-4xl sm:text-[3rem] font-extrabold leading-[1.05] tracking-tight max-w-xl bg-gradient-to-br from-white via-white to-indigo-200/80 bg-clip-text text-transparent">
-            Learn math, one clip at a time
+    <div className="space-y-10">
+      {/* Hero */}
+      <section className="relative overflow-hidden rounded-xl border border-white/10 bg-white/[0.02] px-7 py-12 sm:px-10 sm:py-16">
+        <div className="absolute inset-0 bg-gradient-to-b from-white/[0.03] to-transparent" />
+        <div className="relative max-w-2xl">
+          <div className="text-xs font-semibold tracking-[0.2em] text-slate-500 uppercase">Bite-sized math</div>
+          <h1 className="mt-4 text-4xl sm:text-5xl font-extrabold tracking-tight text-white leading-[1.05]">
+            Learn math,<br />one clip at a time.
           </h1>
-          <p className="mt-4 text-slate-300/90 max-w-md text-[15px]">
-            Watch a short video, take a quick 3-question check-in, and watch your progress climb.
+          <p className="mt-5 text-slate-400 text-[15px] max-w-md leading-relaxed">
+            Short video lessons paired with quick, adaptive check-ins. Focused, measurable, and built to make progress stick.
           </p>
         </div>
       </section>
 
       {/* Courses */}
-      <div className="space-y-4">
-        <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-[0.16em] px-1">Courses</h2>
-        <div className="grid gap-3.5 sm:grid-cols-2">
+      <div className="space-y-5">
+        <div className="flex items-baseline justify-between px-0.5">
+          <h2 className="text-xs font-semibold text-slate-500 uppercase tracking-[0.16em]">Courses</h2>
+          <span className="text-xs text-slate-600">{COURSES.length} available</span>
+        </div>
+        <div className="grid gap-px sm:grid-cols-2 rounded-xl overflow-hidden border border-white/10 bg-white/[0.06]">
           {COURSES.map((course, i) => {
             const a = ACCENTS[i % ACCENTS.length]
             const total = courseLessonCount(course)
             const lessonIds = course.units.flatMap((u) => u.lessons.map((l) => l.id))
             const done = lessonIds.filter((id) => user.completed.includes(id)).length
             const pct = total ? Math.round((done / total) * 100) : 0
+            const initial = course.name.trim().charAt(0).toUpperCase()
             return (
               <Link
                 key={course.id}
                 to={`/course/${course.id}`}
-                className={`group bg-white/[0.04] rounded-2xl p-5 border border-white/10 hover:border-white/20 hover:bg-white/[0.06] hover:-translate-y-0.5 transition-all duration-300 ${a.glow}`}
+                className="group bg-[#06070b] hover:bg-white/[0.02] transition-colors p-6"
               >
-                <div className="flex items-center gap-3.5">
-                  <span className={`grid place-items-center w-12 h-12 rounded-xl text-xl text-white bg-gradient-to-br ${a.grad} shadow-lg group-hover:scale-105 transition-transform`}>
-                    {course.emoji}
+                <div className="flex items-start gap-4">
+                  <span className={`grid place-items-center w-11 h-11 rounded-lg font-bold text-lg shrink-0 ${a.badge}`}>
+                    {initial}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <div className="font-bold text-white group-hover:text-brand-300 transition">{course.name}</div>
-                    <div className="text-sm text-slate-400 line-clamp-1">{course.description}</div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-semibold text-white truncate">{course.name}</span>
+                      <ArrowRight className="w-4 h-4 text-slate-600 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                    </div>
+                    <div className="text-sm text-slate-500 line-clamp-1 mt-0.5">{course.description}</div>
                   </div>
                 </div>
-                <div className="flex items-center justify-between mt-4 text-xs">
-                  <span className={`font-semibold ${a.text}`}>{pct}% complete</span>
-                  <span className="text-slate-500">{course.units.length} units · {total} lessons</span>
+                <div className="mt-5 flex items-center justify-between text-xs">
+                  <span className={`font-medium ${a.text}`}>{pct}%</span>
+                  <span className="text-slate-600">{course.units.length} units · {total} lessons</span>
                 </div>
-                <div className="h-1.5 bg-white/10 rounded-full mt-2 overflow-hidden">
-                  <div className={`h-full rounded-full bg-gradient-to-r ${a.bar} transition-all`} style={{ width: `${pct}%` }} />
+                <div className="h-1 bg-white/10 rounded-full mt-2 overflow-hidden">
+                  <div className={`h-full rounded-full ${a.bar} transition-all`} style={{ width: `${pct}%` }} />
                 </div>
               </Link>
             )

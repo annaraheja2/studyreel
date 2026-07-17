@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Plus Jakarta Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       colors: {
         brand: {
@@ -13,13 +13,14 @@ export default {
           800: '#3730a3', 900: '#312e81',
         },
       },
-      boxShadow: {
-        soft: '0 4px 20px -4px rgba(79, 70, 229, 0.10), 0 2px 8px -2px rgba(15, 23, 42, 0.06)',
-        lift: '0 12px 32px -8px rgba(79, 70, 229, 0.20)',
-      },
+      // Sharper, tighter radii across the whole app
       borderRadius: {
-        '2xl': '1.1rem',
-        '3xl': '1.5rem',
+        DEFAULT: '0.25rem',
+        md: '0.375rem',
+        lg: '0.5rem',
+        xl: '0.625rem',
+        '2xl': '0.75rem',
+        '3xl': '0.875rem',
       },
     },
   },
