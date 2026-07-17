@@ -8,12 +8,15 @@ export interface UserData {
   ratings: Record<string, number> // videoId -> stars
   reflections: Record<string, string[]> // videoId -> notes
   quizScores: Record<string, { correct: number; total: number }>
+  likedShorts: string[] // ids of liked feed videos
+  savedShorts: string[] // ids of saved feed videos
 }
 
 const KEY = 'studyreel:user'
 
 const DEFAULT: UserData = {
   completed: [], bookmarks: [], ratings: {}, reflections: {}, quizScores: {},
+  likedShorts: [], savedShorts: [],
 }
 
 export function loadUser(): UserData {
@@ -43,6 +46,8 @@ export function mergeUserData(a: UserData, b: UserData): UserData {
     ratings: { ...(b.ratings ?? {}), ...(a.ratings ?? {}) },
     reflections,
     quizScores: { ...(b.quizScores ?? {}), ...(a.quizScores ?? {}) },
+    likedShorts: uniq([...(a.likedShorts ?? []), ...(b.likedShorts ?? [])]),
+    savedShorts: uniq([...(a.savedShorts ?? []), ...(b.savedShorts ?? [])]),
   }
 }
 

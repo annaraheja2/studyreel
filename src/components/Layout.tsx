@@ -1,7 +1,7 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useState, type ReactNode } from 'react'
 import { useAuth } from '../lib/AuthContext'
-import { Bookmark } from './icons'
+import { Bookmark, Film } from './icons'
 
 export default function Layout({ children }: { children: ReactNode }) {
   const [q, setQ] = useState('')
@@ -36,6 +36,9 @@ export default function Layout({ children }: { children: ReactNode }) {
             />
           </form>
           <nav className="flex items-center gap-4 text-sm shrink-0">
+            <Link to="/videos" className="inline-flex items-center gap-1.5 text-[#6E6459] hover:text-[#2B2620] transition font-medium">
+              <Film className="w-[18px] h-[18px]" /><span className="hidden sm:inline">Videos</span>
+            </Link>
             <Link to="/bookmarks" className="text-[#6E6459] hover:text-[#2B2620] transition"><Bookmark /></Link>
 
             {!user ? (

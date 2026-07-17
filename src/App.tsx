@@ -9,12 +9,14 @@ import Search from './pages/Search'
 import Login from './pages/Login'
 import Admin from './pages/Admin'
 import AdminCourse from './pages/AdminCourse'
+import Videos from './pages/Videos'
 
 export default function App() {
   return (
     <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/videos" element={<Videos />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/course/:courseId" element={<AdminCourse />} />

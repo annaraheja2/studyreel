@@ -5,6 +5,7 @@ import App from './App'
 import { UserProvider } from './lib/UserContext'
 import { AuthProvider } from './lib/AuthContext'
 import { ContentProvider } from './lib/ContentContext'
+import { ShortsProvider } from './lib/ShortsContext'
 import './index.css'
 
 // HashRouter keeps deep links working on any static host (no server config needed).
@@ -13,9 +14,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <HashRouter>
       <AuthProvider>
         <ContentProvider>
-          <UserProvider>
-            <App />
-          </UserProvider>
+          <ShortsProvider>
+            <UserProvider>
+              <App />
+            </UserProvider>
+          </ShortsProvider>
         </ContentProvider>
       </AuthProvider>
     </HashRouter>

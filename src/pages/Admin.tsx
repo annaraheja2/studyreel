@@ -4,6 +4,8 @@ import { collection, getDocs, query, orderBy, limit } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 import { useAuth } from '../lib/AuthContext'
 import { useContent } from '../lib/ContentContext'
+import { useShorts } from '../lib/ShortsContext'
+import VideoUpload from '../components/VideoUpload'
 import { courseLessonCount, type Course } from '../data/content'
 
 interface ReflectionDoc {
@@ -20,11 +22,14 @@ interface ReflectionDoc {
 export default function Admin() {
   const { user, isAdmin, ready } = useAuth()
   const { courses, usingStarter, seed, saveCourses } = useContent()
+  const { shorts, addShort, deleteShort } = useShorts()
   const navigate = useNavigate()
   const [reflections, setReflections] = useState<ReflectionDoc[]>([])
   const [loading, setLoading] = useState(true)
   const [refError, setRefError] = useState('')
   const [busy, setBusy] = useState(false)
+  const [shortTitle, setShortTitle] = useState('')
+  const [shortUrl, setShortUrl] = useState('')
 
   useEffect(() => {
     if (!isAdmin) return
@@ -82,6 +87,16 @@ export default function Admin() {
     setBusy(false)
   }
 
+  async function postShort() {
+    if (!shortTitle.trim() || !shortUrl.trim()) { alert('Add a title and a video.'); return }
+    setBusy(true)
+    try {
+      await addShort({ title: shortTitle.trim(), videoURL: shortUrl.trim(), creatorName: user?.displayName || user?.email || 'Owner' })
+      setShortTitle(''); setShortUrl('')
+    } catch (e) { console.warn(e); alert('Could not post. Check the shorts security rule is published.') }
+    setBusy(false)
+  }
+
   return (
     <div className="space-y-6">
       <div>
@@ -125,6 +140,39 @@ export default function Admin() {
               </div>
             ))}
             {courses.length === 0 && <p className="text-sm text-[#8A8071]">No courses yet. Click “Add course” to create one.</p>}
+          </div>
+        )}
+      </div>
+
+      {/* Videos feed (shorts) */}
+      <div className="bg-[#FBF8F2] rounded-2xl border border-[#E1D8C8] shadow-warmSm p-5">
+        <h2 className="font-semibold mb-1">Videos feed</h2>
+        <p className="text-xs text-[#8A8071] mb-3">Upload short videos for the scrolling “Videos” tab. Best as portrait clips.</p>
+        <div className="space-y-2 bg-[#F7F1E7] border border-[#E1D8C8] rounded-lg p-3">
+          <input
+            value={shortTitle} onChange={(e) => setShortTitle(e.target.value)} placeholder="Caption / title"
+            className="w-full px-3 py-2 rounded-lg bg-[#FBF8F2] border border-[#E1D8C8] text-[#2B2620] placeholder-[#A99E8D] focus:border-[#C7B9A2] outline-none text-sm"
+          />
+          <VideoUpload onUploaded={(url) => setShortUrl(url)} />
+          <input
+            value={shortUrl} onChange={(e) => setShortUrl(e.target.value)} placeholder="…or paste a direct video link"
+            className="w-full px-3 py-2 rounded-lg bg-[#FBF8F2] border border-[#E1D8C8] text-[#2B2620] placeholder-[#A99E8D] focus:border-[#C7B9A2] outline-none text-sm"
+          />
+          <button onClick={postShort} disabled={busy} className="px-4 py-2 rounded-md bg-[#2B2620] text-[#F4EFE6] font-semibold hover:bg-[#3D352B] disabled:opacity-50 transition text-sm">
+            {busy ? 'Posting…' : 'Post to feed'}
+          </button>
+        </div>
+        {shorts.length > 0 && (
+          <div className="mt-3 space-y-2">
+            {shorts.map((s) => (
+              <div key={s.id} className="flex items-center gap-3 p-2.5 rounded-lg bg-[#F7F1E7] border border-[#E1D8C8]">
+                <div className="flex-1 min-w-0">
+                  <div className="font-medium text-sm text-[#2B2620] truncate">{s.title}</div>
+                  <div className="text-xs text-[#8A8071] truncate">{s.creatorName}</div>
+                </div>
+                <button onClick={() => { if (confirm('Delete this video?')) deleteShort(s.id) }} className="text-sm px-2 py-1 rounded-md text-red-600 hover:bg-red-500/10 transition">Delete</button>
+              </div>
+            ))}
           </div>
         )}
       </div>

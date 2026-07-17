@@ -12,6 +12,8 @@ interface Ctx {
   rate: (id: string, stars: number) => void
   addReflection: (id: string, text: string) => void
   markCompleted: (id: string, correct: number, total: number) => void
+  toggleLikeShort: (id: string) => void
+  toggleSaveShort: (id: string) => void
   reset: () => void
 }
 
@@ -83,6 +85,18 @@ export function UserProvider({ children }: { children: ReactNode }) {
     ...u, ratings: { ...u.ratings, [id]: stars },
   })), [update])
 
+  const toggleLikeShort = useCallback((id: string) => update((u) => ({
+    ...u,
+    likedShorts: (u.likedShorts ?? []).includes(id)
+      ? (u.likedShorts ?? []).filter((x) => x !== id) : [...(u.likedShorts ?? []), id],
+  })), [update])
+
+  const toggleSaveShort = useCallback((id: string) => update((u) => ({
+    ...u,
+    savedShorts: (u.savedShorts ?? []).includes(id)
+      ? (u.savedShorts ?? []).filter((x) => x !== id) : [...(u.savedShorts ?? []), id],
+  })), [update])
+
   const addReflection = useCallback((id: string, text: string) => {
     // Save to the student's own record (shown back to them on the lesson).
     update((u) => ({
@@ -112,11 +126,11 @@ export function UserProvider({ children }: { children: ReactNode }) {
   })), [update])
 
   const reset = useCallback(() => update(() => ({
-    completed: [], bookmarks: [], ratings: {}, reflections: {}, quizScores: {},
+    completed: [], bookmarks: [], ratings: {}, reflections: {}, quizScores: {}, likedShorts: [], savedShorts: [],
   })), [update])
 
   return (
-    <UserCtx.Provider value={{ user, syncing, toggleBookmark, rate, addReflection, markCompleted, reset }}>
+    <UserCtx.Provider value={{ user, syncing, toggleBookmark, rate, addReflection, markCompleted, toggleLikeShort, toggleSaveShort, reset }}>
       {children}
     </UserCtx.Provider>
   )
