@@ -7,18 +7,18 @@ export default function ProgressMap({ units }: { units: Unit[] }) {
   const { user } = useUser()
 
   return (
-    <div className="rounded-xl overflow-hidden border border-white/10 divide-y divide-white/[0.07]">
+    <div className="rounded-xl overflow-hidden border border-[#E1D8C8] divide-y divide-[#E7DFD0]">
       {units.map((unit, ui) => (
-        <div key={unit.id} className="bg-[#06070b] hover:bg-white/[0.02] transition-colors p-5">
+        <div key={unit.id} className="bg-[#FBF8F2] hover:bg-[#F6F0E5] transition-colors p-5">
           <Link to={`/unit/${unit.id}`} className="flex items-center gap-3.5 group">
-            <span className="grid place-items-center w-9 h-9 rounded-lg bg-white/[0.05] border border-white/10 text-slate-400 text-sm font-semibold shrink-0">
+            <span className="grid place-items-center w-9 h-9 rounded-lg bg-[#F4EEE3] border border-[#E1D8C8] text-[#6E6459] text-sm font-semibold shrink-0">
               {String(ui + 1).padStart(2, '0')}
             </span>
             <div className="flex-1 min-w-0">
-              <div className="font-semibold text-white group-hover:text-white transition truncate">{unit.name}</div>
-              <div className="text-xs text-slate-500 truncate">{unit.description}</div>
+              <div className="font-semibold text-[#2B2620] group-hover:text-[#2B2620] transition truncate">{unit.name}</div>
+              <div className="text-xs text-[#8A8071] truncate">{unit.description}</div>
             </div>
-            <ChevronRight className="w-4 h-4 text-slate-600 group-hover:text-white transition" />
+            <ChevronRight className="w-4 h-4 text-[#A99E8D] group-hover:text-[#2B2620] transition" />
           </Link>
 
           <div className="flex items-center mt-4 pl-[3.25rem]">
@@ -30,13 +30,13 @@ export default function ProgressMap({ units }: { units: Unit[] }) {
                     to={`/video/${lesson.id}`}
                     title={lesson.title}
                     className={`grid place-items-center w-7 h-7 shrink-0 rounded-md text-xs font-semibold transition hover:scale-105 ${
-                      done ? 'bg-white text-[#06070b]' : 'bg-white/[0.06] text-slate-300 border border-white/10 hover:border-white/30'
+                      done ? 'bg-[#2B2620] text-[#F4EFE6]' : 'bg-[#E1D8C8] text-[#4A4136] border border-[#E1D8C8] hover:border-[#C7B9A2]'
                     }`}
                   >
                     {done ? <Check className="w-4 h-4" /> : idx + 1}
                   </Link>
                   {idx < unit.lessons.length - 1 && (
-                    <div className={`h-px flex-1 mx-1.5 ${done ? 'bg-white/40' : 'bg-white/10'}`} />
+                    <div className={`h-px flex-1 mx-1.5 ${done ? 'bg-[#2B2620]/40' : 'bg-[#E1D8C8]'}`} />
                   )}
                 </div>
               )
